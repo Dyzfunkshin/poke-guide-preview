@@ -1,0 +1,65 @@
+/* scrollable ToC area within the fixed sidebar */
+#toc .nav{
+  /* butt up against header without extra gap */
+  margin-top: 0;
+  /* stack groups vertically */
+  display: flex;
+  /* enforce column layout */
+  flex-direction: column;
+  /* visual space between group cards */
+  gap: .7rem;
+  /* fill remaining height below header */
+  flex: 1;
+  /* allow ToC list to scroll internally */
+  overflow-y: auto;
+  /* smooth programmatic scroll when centering active items */
+  scroll-behavior: smooth;
+  /* snap near item starts to reduce jitter */
+  scroll-snap-type: y proximity;
+  /* keep text off the scrollbar track */
+  padding-right: .25rem;
+  /* keep header visible by limiting ToC height */
+  max-height: calc(100vh - var(--toc-offset));
+}
+/* card container for each H2 group */
+.nav-group{
+  /* warm corner glow + dark panel gradient */
+  background:
+    radial-gradient(circle at top left, rgba(255,138,0,.08), transparent 60%),
+    linear-gradient(145deg, rgba(8,12,26,.96), rgba(4,5,12,.94));
+  /* elevation + outline ring */
+  box-shadow: 0 10px 28px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.03);
+  /* subtle border for edge crispness */
+  border: 1px solid rgba(255,255,255,.03);
+  /* rounded corners consistent with header */
+  border-radius: 16px;
+  /* inner padding for header row and items */
+  padding: 10px 10px 8px;
+  /* snap point so active headers align at the top nicely */
+  scroll-snap-align: start;
+}
+/* reset/normalize interactive row base (applies to H2/H3) */
+.nav-link{
+  /* remove default button border */
+  border: none;
+  /* left-align like list items */
+  text-align: left;
+  /* defer padding to level-specific classes */
+  padding: 0;
+  /* make rows fill card width */
+  width: 100%;
+  /* strip default button background */
+  background: none;
+  /* inherit site type settings */
+  font: inherit;
+  /* inherit color scheme */
+  color: inherit;
+  /* pointer cursor to indicate interactivity */
+  cursor: pointer;
+  /* small rounding so outlines look clean */
+  border-radius: 8px;
+  /* smooth hover/active transitions without layout shift */
+  transition: background .15s ease, transform .12s ease, box-shadow .15s ease;
+}
+/* container under each H2 header */
+.nav-subnav{ margin-top: 8px; }

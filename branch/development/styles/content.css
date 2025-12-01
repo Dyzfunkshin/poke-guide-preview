@@ -1,0 +1,47 @@
+/* main content column containing section cards */
+.content{
+  /* consume remaining horizontal space */
+  flex: 1;
+  /* stack sections vertically */
+  display: flex;
+  /* enforce column flow */
+  flex-direction: column;
+  /* center the fixed-width cards */
+  align-items: center;
+  /* keep area transparent so page bg shows around cards */
+  background: transparent;
+}
+/* card styling for each section */
+.content>section{
+  /* use full column width up to a readable max */
+  width: 100%;
+  /* clamp line length to the token */
+  max-width: var(--card-max-w);
+  /* warm corner glow plus glassy gradient fill */
+  background:
+    radial-gradient(circle at top left, rgba(255,138,0,.08), transparent 55%),
+    linear-gradient(140deg, var(--card-bg-1), var(--card-bg-2));
+  /* rounded corners that match the design */
+  border-radius: 18px;
+  /* comfortable inner padding */
+  padding: 1.6rem 1.8rem 2rem;
+  /* elevation plus a thin outline for crisp edges */
+  box-shadow: 0 20px 45px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.03);
+  /* subtle border to sharpen the card edge */
+  border: 1px solid rgba(255,255,255,.03);
+  /* smooth non-geometric transitions to avoid layout shift */
+  transition: box-shadow .18s ease, border-color .18s ease, filter .18s ease;
+}
+/* vertical rhythm between consecutive cards */
+.content>section+section{ margin-top: 1.6rem; }
+/* tactile hover cue using shadow only (no translate) */
+.content>section:hover{
+  /* slightly increase elevation on hover */
+  box-shadow: 0 26px 55px rgba(0,0,0,.92), 0 0 0 1px rgba(255,255,255,.05);
+  /* brighten outline a touch */
+  border-color: rgba(255,255,255,.05);
+}
+/* soften body copy color */
+.content p{ color: var(--text-soft); }
+/* tidy list spacing */
+.content ul{ margin: 8px 0 0 22px; }

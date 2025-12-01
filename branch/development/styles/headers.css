@@ -1,0 +1,37 @@
+/* top-level section headers */
+h2{
+  /* remove extra gap above; cards already space content */
+  margin-top: 0;
+  /* small gap to content below */
+  margin-bottom: .8rem;
+  /* headline size matching target design */
+  font-size: 1.7rem;
+  /* slight tracking for polish */
+  letter-spacing: .02em;
+}
+/* subsection headers */
+h3{
+  /* space above to separate groups */
+  margin-top: 1.5rem;
+  /* small gap below before text */
+  margin-bottom: .5rem;
+  /* size step down from h2 */
+  font-size: 1.25rem;
+  /* emphasize subsections inside cards */
+  color: var(--accent-strong);
+}
+/* nested anchor headers (under h3) */
+h4{
+  /* space above */
+  margin-top: 1rem;
+  /* tight gap below */
+  margin-bottom: .35rem;
+  /* slightly larger than body text */
+  font-size: 1.05rem;
+  /* maintain strong contrast */
+  color: var(--text);
+  /* add mild emphasis */
+  font-weight: 600;
+}
+/* ensure in-page links land below the top edge when focused */
+[id]{ scroll-margin-top: 1.7rem; }

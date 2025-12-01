@@ -1,0 +1,11 @@
+/* wrap sidebar + content; offset content by the fixed sidebar width */
+.layout{
+  /* enable horizontal layout */
+  display: flex;
+  /* ensure full viewport height for stable sidebar */
+  min-height: 100vh;
+  /* push content to the right so it doesn’t sit under the fixed sidebar */
+  margin-left: var(--sidebar-w);
+  /* add comfortable inner padding around the content column */
+  padding: 1.2rem 2rem 2rem;
+}

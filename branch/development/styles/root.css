@@ -1,0 +1,41 @@
+/* define a global token scope for theme values */
+:root{
+  /* deep space background color */
+  --bg: #05060b;
+  /* alternate dark tone for panels */
+  --bg-alt: #10131a;
+  /* deepest tone for accents */
+  --bg-deep: #020309;
+  /* base card background */
+  --card: #0b1020;
+  /* secondary card tone for gradients */
+  --card-alt: #050814;
+  /* primary text color */
+  --text: #e5e7f8;
+  /* secondary/body text color */
+  --text-soft: #b3b9d9;
+  /* muted caption color */
+  --muted: #7d86aa;
+  /* orange accent for highlights */
+  --accent: #ff8a00;
+  /* bright accent for outlines/highlights */
+  --accent-strong: #ffcb05;
+  /* translucent accent wash */
+  --accent-soft: rgba(255, 138, 0, 0.18);
+  /* subtle divider color for sidebar edge */
+  --border-subtle: #20263a;
+  /* sidebar tint to increase contrast on background */
+  --sidebar-tint: rgba(0,0,0,.6);
+  /* glass gradient stop 1 (card top) */
+  --card-bg-1: rgba(11,16,32,.8);
+  /* glass gradient stop 2 (card bottom) */
+  --card-bg-2: rgba(5,8,20,.8);
+  /* fixed sidebar width shared by layout and sidebar */
+  --sidebar-w: 300px;
+  /* maximum content card width for ideal line length */
+  --card-max-w: 960px;
+  /* header height to subtract from ToC scroll area */
+  --toc-offset: 170px;
+  /* reserved size for an optional floating logo */
+  --logo-size: 132px;
+}

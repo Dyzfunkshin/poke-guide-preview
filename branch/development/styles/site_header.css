@@ -1,0 +1,55 @@
+/* brand header at the top of the sidebar */
+.site-header{
+  /* regular flow container for logo and title */
+  position: relative;
+  /* span full sidebar width */
+  width: 100%;
+  /* provide enough height for the logo block */
+  min-height: 170px;
+  /* internal padding to keep content off the edges */
+  padding: 12px 14px;
+  /* dark gradient for contrast and depth */
+  background: linear-gradient(145deg, rgba(18,22,38,.96), rgba(9,12,25,.94));
+  /* rounded corners to match other panels */
+  border-radius: 16px;
+  /* elevated shadow plus fine outline ring */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.06);
+  /* crisp border to define edges */
+  border: 1px solid rgba(255,255,255,0.08);
+  /* stack logo and title vertically */
+  display: flex;
+  /* column layout for the two elements */
+  flex-direction: column;
+  /* align to the left so logo sits top-left */
+  align-items: flex-start;
+  /* keep content anchored at the top */
+  justify-content: flex-start;
+}
+/* logo image inside the header */
+.site-header-image{
+  /* block-level so margins work cleanly */
+  display: block;
+  /* fixed width appropriate for a 300px sidebar */
+  width: 180px;
+  /* maintain intrinsic aspect ratio */
+  height: auto;
+  /* small vertical spacing around the image */
+  margin: 4px 0 8px 0;
+  /* slightly soften the image corners */
+  border-radius: 12px;
+}
+/* label beneath the logo */
+.site-title{
+  /* left-align under the logo */
+  text-align: left;
+  /* strong weight for visibility */
+  font-weight: 800;
+  /* subtle tracking for a branded look */
+  letter-spacing: .04em;
+  /* modest size so it complements the logo */
+  font-size: .95rem;
+  /* slightly reduce brightness to avoid glare */
+  opacity: .9;
+  /* remove default margins for tight rhythm */
+  margin: 0;
+}
