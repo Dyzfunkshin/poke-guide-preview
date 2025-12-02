@@ -1,0 +1,22 @@
+{
+  "name": "poke-guide",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "html-validate index.html content/**/*.html",
+    "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
+    "lint:js": "eslint script.js",
+    "test": "npm run lint && npm run test:toc && npm run test:axe",
+    "test:toc": "playwright test tests/toc.spec.js",
+    "test:axe": "playwright test tests/axe.spec.js"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.9.1",
+    "@playwright/test": "^1.45.0",
+    "eslint": "^8.57.0",
+    "html-validate": "^8.7.3",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

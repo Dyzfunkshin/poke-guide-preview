@@ -209,7 +209,6 @@
 
 /* Medium screens (tablets, small laptops) */
 @media (max-width: 900px) {
-
   /* Adjust content padding on medium screens */
   .content {
     /* Slightly reduce side padding */
@@ -225,7 +224,6 @@
 
 /* Small screens (phones) */
 @media (max-width: 768px) {
-
   /* Stack sidebar above content instead of side-by-side */
   .layout {
     /* Vertical layout on small screens */
@@ -265,6 +263,7 @@
     padding: 1.3rem 1rem 2rem;
   }
 
+
   /* Nav layout adjustment on small screens */
   .nav {
     /* Lay nav cards out row-wise, wrapping as needed */
@@ -287,6 +286,7 @@
   .nav-group {
     flex: 1 1 100%;
   }
+
 
   /* Slight font adjustments for mobile top-level nav items */
   .nav-link--level1 {

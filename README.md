@@ -31,3 +31,14 @@
 - Keep `content/*.html` UTF-8 to avoid mojibake in the UI.
 - The ToC builder expects `<h2>/<h3>/<h4>` ids; it will auto-slug missing ids.
 - If preview target changes, update `external_repository` in `deploy-preview.yml` and ensure `PREVIEW_TOKEN` covers that repo.
+
+## Local tests (lint + basic UI checks)
+1) Install tools once: `npm install` (dev deps: html-validate, stylelint, eslint, Playwright, axe-core).
+2) Run all checks: `npm test` (lints HTML/CSS/JS, then runs Playwright ToC scroll test and axe accessibility scan).
+3) Individual commands:
+   - `npm run lint:html`
+   - `npm run lint:css`
+   - `npm run lint:js`
+   - `npm run test:toc`
+   - `npm run test:axe`
+Playwright tests auto-start a local server on port 4173 via `python -m http.server 4173`. Keep the port free before running.
