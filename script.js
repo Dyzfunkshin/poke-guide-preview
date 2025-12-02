@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sectionsToLoad = [
     "content/welcome.html",
     "content/identify.html",
+    "content/condition.html",
     "content/worth.html",
     "content/tracking.html",
     "content/grading.html"

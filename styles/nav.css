@@ -2,323 +2,323 @@
 
 /* Root navigation container inside sidebar */
 .nav {
-    /* Space above the first nav group */
-    margin-top: 0;
+  /* Space above the first nav group */
+  margin-top: 0;
 
-    /* Use flexbox for stacking nav groups */
-    display: flex;
+  /* Use flexbox for stacking nav groups */
+  display: flex;
 
-    /* Stack nav groups vertically */
-    flex-direction: column;
+  /* Stack nav groups vertically */
+  flex-direction: column;
 
-    /* Space between each nav group card */
-    gap: 0.7rem;
+  /* Space between each nav group card */
+  gap: 0.7rem;
 
-    /* Let nav expand to fill remaining vertical space */
-    flex: 1;
+  /* Let nav expand to fill remaining vertical space */
+  flex: 1;
 
-    /* Required for flex children to be scrollable in some browsers */
-    min-height: 0;
+  /* Required for flex children to be scrollable in some browsers */
+  min-height: 0;
 
-    /* Allow vertical scrolling if nav is taller than sidebar */
-    overflow-y: auto;
+  /* Allow vertical scrolling if nav is taller than sidebar */
+  overflow-y: auto;
 
-    /* Small right padding to keep content away from scrollbar edge */
-    padding-right: 0.3rem;
+  /* Small right padding to keep content away from scrollbar edge */
+  padding-right: 0.3rem;
 
-    /* Extra bottom padding so the last card can scroll fully into view */
-    padding-bottom: 1rem;
+  /* Extra bottom padding so the last card can scroll fully into view */
+  padding-bottom: 1rem;
 }
 
 /* Hide scrollbar in WebKit-based browsers */
 .nav::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 .nav::-webkit-scrollbar-thumb {
-    background: rgba(121, 132, 184, 0.45);
-    border-radius: 999px;
+  background: rgba(121, 132, 184, 0.45);
+  border-radius: 999px;
 }
 
 .nav::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 /* Show a thin scrollbar hint in Firefox */
 .nav {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(121, 132, 184, 0.45) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(121, 132, 184, 0.45) transparent;
 }
 
 /* Each H2 group is a "card" in the ToC */
 .nav-group {
-    /* Allow active outline and shadows to render nicely */
-    position: relative;
+  /* Allow active outline and shadows to render nicely */
+  position: relative;
 
-    /* Inner padding for the group card */
-    padding: 0.55rem 0.5rem 0.5rem;
+  /* Inner padding for the group card */
+  padding: 0.55rem 0.5rem 0.5rem;
 
-    /* Rounded corners for the card shape */
-    border-radius: 0.9rem;
+  /* Rounded corners for the card shape */
+  border-radius: 0.9rem;
 
-    /* Background: subtle accent glow + dark gradient */
-    background:
-        radial-gradient(circle at top left, rgba(255, 138, 0, 0.08), transparent 60%),
-        linear-gradient(145deg, rgba(8, 12, 26, 0.96), rgba(4, 5, 12, 0.94));
+  /* Background: subtle accent glow + dark gradient */
+  background:
+    radial-gradient(circle at top left, rgba(255, 138, 0, 0.08), transparent 60%),
+    linear-gradient(145deg, rgba(8, 12, 26, 0.96), rgba(4, 5, 12, 0.94));
 
-    /* Shadow and subtle border to lift the card from background */
-    box-shadow:
-        0 10px 28px rgba(0, 0, 0, 0.9),
-        0 0 0 1px rgba(255, 255, 255, 0.03);
+  /* Shadow and subtle border to lift the card from background */
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
 
-    /* Soft border for crisp edges */
-    border: 1px solid rgba(255, 255, 255, 0.03);
+  /* Soft border for crisp edges */
+  border: 1px solid rgba(255, 255, 255, 0.03);
 
-    /* Animate border and shadow changes smoothly */
-    transition:
-        box-shadow 0.18s ease,
-        border-color 0.18s ease;
+  /* Animate border and shadow changes smoothly */
+  transition:
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
 
 /* Active ToC card (the section currently in view) */
 .nav-group--active {
-    /* Highlight border with strong accent color */
-    border-color: var(--accent-strong);
+  /* Highlight border with strong accent color */
+  border-color: var(--accent-strong);
 
-    /* Slightly stronger shadow and accent outline */
-    box-shadow:
-        0 10px 28px rgba(0, 0, 0, 0.96),
-        0 0 0 1px rgba(255, 203, 5, 0.55);
+  /* Slightly stronger shadow and accent outline */
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.96),
+    0 0 0 1px rgba(255, 203, 5, 0.55);
 }
 
 /* Generic nav button styling for H2 and H3 items */
 .nav-link {
-    /* Remove default button border */
-    border: none;
+  /* Remove default button border */
+  border: none;
 
-    /* Align text to the left */
-    text-align: left;
+  /* Align text to the left */
+  text-align: left;
 
-    /* Comfortable padding for click target */
-    padding: 0.55rem 0.8rem;
+  /* Comfortable padding for click target */
+  padding: 0.55rem 0.8rem;
 
-    /* Rounded corners for button feel */
-    border-radius: 0.65rem;
+  /* Rounded corners for button feel */
+  border-radius: 0.65rem;
 
-    /* Transparent background (card background shows through) */
-    background: transparent;
+  /* Transparent background (card background shows through) */
+  background: transparent;
 
-    /* Base text color for nav items */
-    color: #d5defa;
+  /* Base text color for nav items */
+  color: #d5defa;
 
-    /* Slightly smaller text than body for nav items */
-    font-size: 0.95rem;
+  /* Slightly smaller text than body for nav items */
+  font-size: 0.95rem;
 
-    /* Pointer cursor to indicate clickability */
-    cursor: pointer;
+  /* Pointer cursor to indicate clickability */
+  cursor: pointer;
 
-    /* Let nav link stretch to full width of its group */
-    width: 100%;
+  /* Let nav link stretch to full width of its group */
+  width: 100%;
 
-    /* Smooth highlight transitions */
-    transition:
-        background 0.18s ease,
-        color 0.18s ease,
-        transform 0.06s ease,
-        box-shadow 0.18s ease;
+  /* Smooth highlight transitions */
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.06s ease,
+    box-shadow 0.18s ease;
 }
 
 /* Top-level nav items corresponding to H2 headings */
 .nav-link--level1 {
-    /* Make them slightly bolder than normal */
-    font-weight: 650;
+  /* Make them slightly bolder than normal */
+  font-weight: 650;
 
-    /* Add letter spacing for label-style look */
-    letter-spacing: 0.04em;
+  /* Add letter spacing for label-style look */
+  letter-spacing: 0.04em;
 
-    /* Use uppercase for strong hierarchy */
-    text-transform: uppercase;
+  /* Use uppercase for strong hierarchy */
+  text-transform: uppercase;
 
-    /* Slightly smaller than normal nav-link to feel like labels */
-    font-size: 0.86rem;
+  /* Slightly smaller than normal nav-link to feel like labels */
+  font-size: 0.86rem;
 }
 
 /* Second-level nav items corresponding to H3 headings */
 .nav-link--level2 {
-    /* Slightly smaller text for subordinate items */
-    font-size: 0.84rem;
+  /* Slightly smaller text for subordinate items */
+  font-size: 0.84rem;
 
-    /* Small top margin to separate from H2 label */
-    margin-top: 0.1rem;
+  /* Small top margin to separate from H2 label */
+  margin-top: 0.1rem;
 
-    /* Tiny left shift so dot + text align visually in card */
-    margin-left: 0.1rem;
+  /* Tiny left shift so dot + text align visually in card */
+  margin-left: 0.1rem;
 
-    /* Medium weight for readability */
-    font-weight: 500;
+  /* Medium weight for readability */
+  font-weight: 500;
 
-    /* Slightly softer text color than top-level entries */
-    color: #c0c8f0;
+  /* Slightly softer text color than top-level entries */
+  color: #c0c8f0;
 
-    /* Indent to make hierarchy obvious */
-    padding-left: 1.25rem;
+  /* Indent to make hierarchy obvious */
+  padding-left: 1.25rem;
 
-    /* Needed for positioning the bullet dot */
-    position: relative;
+  /* Needed for positioning the bullet dot */
+  position: relative;
 }
 
 /* Decorative bullet dot for H3 nav items */
 .nav-link--level2::before {
-    /* Add a small circle marker */
-    content: "";
+  /* Add a small circle marker */
+  content: "";
 
-    /* Place dot relative to the nav item */
-    position: absolute;
+  /* Place dot relative to the nav item */
+  position: absolute;
 
-    /* Horizontal offset from left edge */
-    left: 0.55rem;
+  /* Horizontal offset from left edge */
+  left: 0.55rem;
 
-    /* Center vertically within the button */
-    top: 50%;
-    transform: translateY(-50%);
+  /* Center vertically within the button */
+  top: 50%;
+  transform: translateY(-50%);
 
-    /* Size of the dot */
-    width: 6px;
-    height: 6px;
+  /* Size of the dot */
+  width: 6px;
+  height: 6px;
 
-    /* Rounded shape for the dot */
-    border-radius: 999px;
+  /* Rounded shape for the dot */
+  border-radius: 999px;
 
-    /* Soft bluish color to match nav text */
-    background: rgba(169, 182, 235, 0.85);
+  /* Soft bluish color to match nav text */
+  background: rgba(169, 182, 235, 0.85);
 }
 
 /* Hover state for H2 and H3 nav items */
 .nav-link:hover {
-    /* Slightly darker background on hover */
-    background: rgba(26, 33, 53, 0.95);
+  /* Slightly darker background on hover */
+  background: rgba(26, 33, 53, 0.95);
 
-    /* Tiny horizontal nudge for tactile feel */
-    transform: translateX(2px);
+  /* Tiny horizontal nudge for tactile feel */
+  transform: translateX(2px);
 
-    /* Light outline for hover feedback */
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+  /* Light outline for hover feedback */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 /* Keyboard focus visibility for nav items */
 .nav-link:focus-visible,
 .nav-anchor:focus-visible {
-    outline: 2px solid var(--accent-strong);
-    outline-offset: 2px;
-    background: rgba(26, 33, 53, 0.95);
-    transform: translateX(2px);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  background: rgba(26, 33, 53, 0.95);
+  transform: translateX(2px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 /* Subnav container used for H3+H4 stacks inside a group */
 .nav-subnav {
-    /* Small gap above subnav under H2 label */
-    margin-top: 0.15rem;
+  /* Small gap above subnav under H2 label */
+  margin-top: 0.15rem;
 
-    /* Use flex to stack sub-items vertically */
-    display: flex;
+  /* Use flex to stack sub-items vertically */
+  display: flex;
 
-    /* Vertical layout for sub-items */
-    flex-direction: column;
+  /* Vertical layout for sub-items */
+  flex-direction: column;
 
-    /* Small gap between each child item */
-    gap: 0.05rem;
+  /* Small gap between each child item */
+  gap: 0.05rem;
 }
 
 /* Anchors container that holds H4-level links under each H3 */
 .nav-subnav--anchors {
-    /* Small gap above anchors group */
-    margin-top: 0.1rem;
+  /* Small gap above anchors group */
+  margin-top: 0.1rem;
 
-    /* Indent to the right relative to H3 line */
-    margin-left: 0.9rem;
+  /* Indent to the right relative to H3 line */
+  margin-left: 0.9rem;
 
-    /* Inner padding to separate text from divider line */
-    padding-left: 0.6rem;
+  /* Inner padding to separate text from divider line */
+  padding-left: 0.6rem;
 
-    /* Vertical divider line to visually group anchors */
-    border-left: 1px solid rgba(121, 132, 184, 0.45);
+  /* Vertical divider line to visually group anchors */
+  border-left: 1px solid rgba(121, 132, 184, 0.45);
 }
 
 /* Anchor-level buttons corresponding to H4 headings */
 .nav-anchor {
-    /* Remove default button border */
-    border: none;
+  /* Remove default button border */
+  border: none;
 
-    /* Transparent so background card shows through */
-    background: transparent;
+  /* Transparent so background card shows through */
+  background: transparent;
 
-    /* Softer blue color for lowest-level links */
-    color: #a9b6eb;
+  /* Softer blue color for lowest-level links */
+  color: #a9b6eb;
 
-    /* Small text size for fine-grained topics */
-    font-size: 0.78rem;
+  /* Small text size for fine-grained topics */
+  font-size: 0.78rem;
 
-    /* Align text to the left for list-like reading */
-    text-align: left;
+  /* Align text to the left for list-like reading */
+  text-align: left;
 
-    /* Narrow padding for a compact row feel */
-    padding: 0.19rem 0.4rem;
+  /* Narrow padding for a compact row feel */
+  padding: 0.19rem 0.4rem;
 
-    /* Rounded corners for highlight states */
-    border-radius: 0.4rem;
+  /* Rounded corners for highlight states */
+  border-radius: 0.4rem;
 
-    /* Pointer cursor to show clickability */
-    cursor: pointer;
+  /* Pointer cursor to show clickability */
+  cursor: pointer;
 
-    /* Allow anchor to span full width of its container */
-    width: 100%;
+  /* Allow anchor to span full width of its container */
+  width: 100%;
 
-    /* Smooth transitions for hover/active states */
-    transition:
-        background 0.18s ease,
-        color 0.18s ease,
-        transform 0.06s ease;
+  /* Smooth transitions for hover/active states */
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.06s ease;
 }
 
 /* Hover state for H4 anchors */
 .nav-anchor:hover {
-    /* Match hover background with other nav items */
-    background: rgba(26, 33, 53, 0.95);
+  /* Match hover background with other nav items */
+  background: rgba(26, 33, 53, 0.95);
 
-    /* Small horizontal nudge for hover feedback */
-    transform: translateX(2px);
+  /* Small horizontal nudge for hover feedback */
+  transform: translateX(2px);
 }
 
 /* Shared active state for ALL nav items (H2, H3, H4) */
 .nav-link--active,
 .nav-anchor--active {
-    /* Soft accent background behind the active item */
-    background: var(--accent-soft);
+  /* Soft accent background behind the active item */
+  background: var(--accent-soft);
 
-    /* Bright accent text color for emphasis */
-    color: var(--accent-strong);
+  /* Bright accent text color for emphasis */
+  color: var(--accent-strong);
 
-    /* Accent-colored left border to show selection */
-    border-left: 2px solid var(--accent-strong);
+  /* Accent-colored left border to show selection */
+  border-left: 2px solid var(--accent-strong);
 }
 
 /* Extra emphasis for active top-level (H2) labels */
 .nav-link--level1.nav-link--active {
-    /* Slightly bolder weight when active */
-    font-weight: 700;
+  /* Slightly bolder weight when active */
+  font-weight: 700;
 }
 
 /* Inline nav loading/error state */
 .nav-status {
-    font-size: 0.85rem;
-    color: var(--muted);
-    padding: 0.35rem 0.4rem;
-    display: none;
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 0.35rem 0.4rem;
+  display: none;
 }
 
 .nav-status--error {
-    color: #f2c94c;
-    display: block;
+  color: #f2c94c;
+  display: block;
 }
