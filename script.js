@@ -42,6 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (statusEl) statusEl.remove();
   }
 
+  function showContentError(message) {
+    if (!contentRoot) return;
+    let el = contentRoot.querySelector(".content-status");
+    if (!el) {
+      el = document.createElement("div");
+      el.className = "content-status content-status--error";
+      contentRoot.prepend(el);
+    }
+    el.textContent = message;
+  }
+
+  function clearContentStatus() {
+    if (!contentRoot) return;
+    const statusEl = contentRoot.querySelector(".content-status");
+    if (statusEl) statusEl.remove();
+  }
+
   // How we decide when to switch active headings while scrolling
   // 0.5  → switch when the top of the screen is halfway between headings
   // 0.3  → switch earlier (closer to the previous heading)
@@ -93,6 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (loadErrors.length) {
       setNavStatus("Some sections failed to load. Please refresh.", "error");
+      showContentError("Some sections failed to load. Please refresh.");
+    } else {
+      clearNavStatus();
+      clearContentStatus();
     }
   }
 

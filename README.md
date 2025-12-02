@@ -8,9 +8,7 @@
   - **Preview:** `dev` → `gh-pages` of `Dyzfunkshin/poke-server-preview` (separate repo) for staging.
 
 ## Local development
-1) Serve over HTTP so `fetch("content/*.html")` works (file:// will break). Options:
-   - VS Code Live Server from `index.html`, or
-   - `python -m http.server 8000` from repo root, then open http://localhost:8000.
+1) Serve over HTTP so `fetch("content/*.html")` works (file:// will break). Easiest: open the folder in VS Code, right‑click `index.html`, choose “Open with Live Server.” Or run `python -m http.server 8000` from repo root, then open http://localhost:8000.
 2) Edit and reload. The sidebar ToC is built client-side after the sections load.
 
 ## Workflows

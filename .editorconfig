@@ -1,0 +1,14 @@
+root = true
+
+[*.{html,css,js}]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+
+[*.yml]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
