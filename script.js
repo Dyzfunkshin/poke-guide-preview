@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+﻿document.addEventListener("DOMContentLoaded", () => {
   const contentRoot = document.getElementById("content");
   const tocRoot = document.getElementById("toc");
 
@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", () => {
       clearNavStatus();
       clearContentStatus();
     }
+
+    adjustBottomPaddingForLastSection();
   }
 
   // Turn heading text into a safe id if one is missing
@@ -410,6 +412,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function adjustBottomPaddingForLastSection() {
+    if (!contentRoot) return;
+    const sections = contentRoot.querySelectorAll("section");
+    if (!sections.length) return;
+
+    const lastSection = sections[sections.length - 1];
+    const docEl = document.documentElement;
+
+    const viewportHeight = window.innerHeight || docEl.clientHeight || 0;
+    const scrollHeight = docEl.scrollHeight || 0;
+    const lastTop = lastSection.getBoundingClientRect().top + window.scrollY;
+
+    // How much extra scroll range we need so lastTop can reach the top of the viewport
+    const availableScroll = scrollHeight - viewportHeight;
+    const neededExtra = Math.max(0, lastTop - availableScroll);
+
+    // Base bottom padding (32px), plus any needed extra so last section can reach the top
+    const desiredPadding = Math.max(32, neededExtra + 16); // small cushion
+    contentRoot.style.paddingBottom = `${desiredPadding}px`;
+  }
+
 
   // 4) Scroll spy: keep the correct nav item highlighted as you scroll.
   //
@@ -505,9 +528,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
+    window.addEventListener("resize", adjustBottomPaddingForLastSection);
 
     // Initial run
     updateActiveFromScroll();
+    adjustBottomPaddingForLastSection();
   }
 
   // Make the body background scroll proportionally to the page scroll.
@@ -597,6 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
     applyInitialLocation();
     initScrollSpy();
     initBackgroundParallax();
+    adjustBottomPaddingForLastSection();
   }
 
   init().catch((error) => {

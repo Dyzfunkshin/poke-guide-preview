@@ -32,23 +32,14 @@
 
 /* Hide scrollbar in WebKit-based browsers */
 .nav::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.nav::-webkit-scrollbar-thumb {
-  background: rgba(121, 132, 184, 0.45);
-  border-radius: 999px;
-}
-
-.nav::-webkit-scrollbar-track {
-  background: transparent;
+    width: 0;
+    height: 0;
 }
 
 /* Show a thin scrollbar hint in Firefox */
 .nav {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(121, 132, 184, 0.45) transparent;
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
 }
 
 /* Each H2 group is a "card" in the ToC */
