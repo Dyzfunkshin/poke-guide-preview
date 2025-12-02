@@ -1,8 +1,0 @@
-/* first-level indent helper */
-.indent-level-1{ margin-left: 0; }
-/* second-level indent helper */
-.indent-level-2{ margin-left: 1.25rem; }
-/* third-level indent helper (kept for future) */
-.indent-level-3{ margin-left: 2.5rem; }
-/* spacing/centering for external widgets */
-.support-button{ margin-top: .8rem; display: flex; justify-content: center; }

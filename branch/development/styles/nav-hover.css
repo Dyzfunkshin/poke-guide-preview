@@ -1,4 +1,0 @@
-/* gentle hover wash for H3 rows without moving them */
-.nav-link--level2:hover{ background: rgba(255,255,255,.04); }
-/* gentle hover wash for H4 rows without moving them */
-.nav-anchor:hover{ background: rgba(255,255,255,.04); }
