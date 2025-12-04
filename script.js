@@ -11,6 +11,7 @@
     "content/welcome.html",
     "content/identify.html",
     "content/condition.html",
+    "content/card-care.html",
     "content/worth.html",
     "content/tracking.html",
     "content/grading.html"
@@ -118,6 +119,34 @@
     }
 
     adjustBottomPaddingForLastSection();
+  }
+
+  async function loadInlinePartials() {
+    if (!contentRoot) return;
+    const placeholders = Array.from(contentRoot.querySelectorAll("[data-include]"));
+    if (!placeholders.length) return;
+
+    const fetches = placeholders.map(async (placeholder) => {
+      const src = placeholder.getAttribute("data-include");
+      if (!src) return;
+
+      try {
+        const response = await fetch(src);
+        if (!response.ok) {
+          throw new Error(`Failed to load ${src}: ${response.status} ${response.statusText}`);
+        }
+
+        const html = await response.text();
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        const fragment = template.content.cloneNode(true);
+        placeholder.replaceWith(fragment);
+      } catch (error) {
+        console.error(`Error loading partial ${src}:`, error);
+      }
+    });
+
+    await Promise.all(fetches);
   }
 
   // Turn heading text into a safe id if one is missing
@@ -616,6 +645,7 @@
   // Bring it all together
   async function init() {
     await loadAllSections();
+    await loadInlinePartials();
     buildTocFromHeadings();
     wireTocClicks();
     wireInlineAnchorLinks();
