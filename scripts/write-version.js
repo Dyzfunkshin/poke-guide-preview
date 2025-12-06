@@ -4,7 +4,16 @@ const { execSync } = require("node:child_process");
 
 const packageJson = require("../package.json");
 
+function getEnvCommit() {
+  const sha = process.env.GITHUB_SHA || process.env.COMMIT_SHA;
+  if (!sha || typeof sha !== "string") return null;
+  return sha.slice(0, 7);
+}
+
 function getCommit() {
+  const envCommit = getEnvCommit();
+  if (envCommit) return envCommit;
+
   try {
     return execSync("git rev-parse --short HEAD", {
       stdio: ["ignore", "pipe", "ignore"]
