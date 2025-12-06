@@ -16,6 +16,7 @@
     "content/tracking.html",
     "content/grading.html"
   ];
+  const VERSION_ENDPOINT = "version.json";
 
   function getNavContainer() {
     if (!tocRoot) return null;
@@ -619,6 +620,38 @@
   }
 
 
+  // Fetch version metadata and show it in the footer.
+  async function injectVersionFooter() {
+    const footerText = document.getElementById("site-version");
+    if (!footerText) return;
+
+    try {
+      const response = await fetch(VERSION_ENDPOINT, { cache: "no-cache" });
+      if (!response.ok) {
+        throw new Error(`Version endpoint responded with ${response.status}`);
+      }
+
+      const data = await response.json();
+      const parts = [];
+
+      if (data.version) parts.push(`v${data.version}`);
+      if (data.commit) parts.push(data.commit);
+
+      const generated = data.generatedAt || data.builtAt || data.updatedAt;
+      if (generated && typeof generated === "string") {
+        const dateOnly = generated.split("T")[0];
+        if (dateOnly) parts.push(dateOnly);
+      }
+
+      footerText.textContent = parts.length
+        ? `Version ${parts.join(" | ")}`
+        : "Version info unavailable";
+    } catch (error) {
+      console.error("Failed to load version info:", error);
+      footerText.textContent = "Version info unavailable";
+    }
+  }
+
   // 5) On first load, either go to the hash or to the first heading
   function applyInitialLocation() {
     const headings = contentRoot.querySelectorAll("h2, h3, h4");
@@ -653,6 +686,7 @@
     initScrollSpy();
     initBackgroundParallax();
     adjustBottomPaddingForLastSection();
+    injectVersionFooter();
   }
 
   init().catch((error) => {

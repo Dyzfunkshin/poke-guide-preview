@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "generate:version": "node scripts/write-version.js",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
     "lint:html": "html-validate index.html content/**/*.html",
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
     "lint:js": "eslint script.js",
+    "postversion": "npm run generate:version",
     "test": "npm run lint && npm run test:toc && npm run test:axe",
     "test:toc": "playwright test tests/toc.spec.js",
     "test:axe": "playwright test tests/axe.spec.js"

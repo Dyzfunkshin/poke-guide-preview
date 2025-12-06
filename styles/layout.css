@@ -205,6 +205,27 @@
     0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
+/* ---------- Footer ---------- */
+
+.site-footer {
+  margin-left: 280px;
+  padding: 0 2rem 1.5rem;
+  color: var(--text-subtle);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.site-footer__text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
 /* ---------- Responsive ---------- */
 
 /* Medium screens (tablets, small laptops) */
@@ -310,5 +331,10 @@
 
   .site-title {
     font-size: 1rem;
+  }
+
+  .site-footer {
+    margin-left: 0;
+    padding: 0 1rem 1.4rem;
   }
 }
