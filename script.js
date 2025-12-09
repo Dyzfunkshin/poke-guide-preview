@@ -14,7 +14,9 @@
     "content/card-care.html",
     "content/worth.html",
     "content/tracking.html",
-    "content/grading.html"
+    "content/grading.html",
+    "content/contact.html",
+    "content/support.html"
   ];
   const VERSION_ENDPOINT = "version.json";
 
@@ -75,11 +77,6 @@
 
   // 1) Load all content sections into <main id="content">
   async function loadAllSections() {
-    // Insert loaded sections before the contact section if present, otherwise before support
-    const contactSection = document.getElementById("contact");
-    const supportSection = document.getElementById("support");
-    const insertBeforeNode = contactSection || supportSection || null;
-
     const loadErrors = [];
 
     for (const file of sectionsToLoad) {
@@ -97,13 +94,7 @@
         const sectionEl = template.content.firstElementChild;
 
         if (sectionEl) {
-          if (insertBeforeNode) {
-            // Insert each loaded section before the Support section
-            contentRoot.insertBefore(sectionEl, insertBeforeNode);
-          } else {
-            // Fallback: no support section found, just append normally
-            contentRoot.appendChild(sectionEl);
-          }
+          contentRoot.appendChild(sectionEl);
         }
       } catch (error) {
         console.error(`Error loading section ${file}:`, error);
