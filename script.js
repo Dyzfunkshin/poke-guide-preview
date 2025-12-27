@@ -115,30 +115,43 @@
 
   async function loadInlinePartials() {
     if (!contentRoot) return;
-    const placeholders = Array.from(contentRoot.querySelectorAll("[data-include]"));
-    if (!placeholders.length) return;
 
-    const fetches = placeholders.map(async (placeholder) => {
-      const src = placeholder.getAttribute("data-include");
-      if (!src) return;
+    const MAX_PASSES = 5; // safety valve to avoid infinite loops
 
-      try {
-        const response = await fetch(src);
-        if (!response.ok) {
-          throw new Error(`Failed to load ${src}: ${response.status} ${response.statusText}`);
+    for (let pass = 0; pass < MAX_PASSES; pass += 1) {
+      const placeholders = Array.from(contentRoot.querySelectorAll("[data-include]"));
+      if (!placeholders.length) break;
+
+      const fetches = placeholders.map(async (placeholder) => {
+        const src = placeholder.getAttribute("data-include");
+        if (!src) {
+          placeholder.removeAttribute("data-include");
+          return;
         }
 
-        const html = await response.text();
-        const template = document.createElement("template");
-        template.innerHTML = html.trim();
-        const fragment = template.content.cloneNode(true);
-        placeholder.replaceWith(fragment);
-      } catch (error) {
-        console.error(`Error loading partial ${src}:`, error);
-      }
-    });
+        try {
+          const response = await fetch(src);
+          if (!response.ok) {
+            throw new Error(`Failed to load ${src}: ${response.status} ${response.statusText}`);
+          }
 
-    await Promise.all(fetches);
+          const html = await response.text();
+          const template = document.createElement("template");
+          template.innerHTML = html.trim();
+          const fragment = template.content.cloneNode(true);
+          placeholder.replaceWith(fragment);
+        } catch (error) {
+          console.error(`Error loading partial ${src}:`, error);
+          placeholder.removeAttribute("data-include");
+        }
+      });
+
+      await Promise.all(fetches);
+    }
+
+    if (contentRoot.querySelector("[data-include]")) {
+      console.warn("Some inline partials could not be loaded after the maximum number of passes.");
+    }
   }
 
   // Turn heading text into a safe id if one is missing
