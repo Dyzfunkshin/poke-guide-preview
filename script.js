@@ -78,14 +78,13 @@
   // 1) Load all content sections into <main id="content">
   async function loadAllSections() {
     const loadErrors = [];
-
-    for (const file of sectionsToLoad) {
+    const sectionPromises = sectionsToLoad.map(async (file) => {
       try {
         const response = await fetch(file);
         if (!response.ok) {
           console.error(`Failed to load ${file}:`, response.status, response.statusText);
           loadErrors.push(file);
-          continue;
+          return null;
         }
 
         const html = await response.text();
@@ -94,11 +93,21 @@
         const sectionEl = template.content.firstElementChild;
 
         if (sectionEl) {
-          contentRoot.appendChild(sectionEl);
+          await resolveInlinePartials(sectionEl);
         }
+
+        return sectionEl;
       } catch (error) {
         console.error(`Error loading section ${file}:`, error);
         loadErrors.push(file);
+        return null;
+      }
+    });
+
+    for (const sectionPromise of sectionPromises) {
+      const sectionEl = await sectionPromise;
+      if (sectionEl) {
+        contentRoot.appendChild(sectionEl);
       }
     }
 
@@ -113,13 +122,13 @@
     adjustBottomPaddingForLastSection();
   }
 
-  async function loadInlinePartials() {
-    if (!contentRoot) return;
+  async function resolveInlinePartials(root) {
+    if (!root) return;
 
     const MAX_PASSES = 5; // safety valve to avoid infinite loops
 
     for (let pass = 0; pass < MAX_PASSES; pass += 1) {
-      const placeholders = Array.from(contentRoot.querySelectorAll("[data-include]"));
+      const placeholders = Array.from(root.querySelectorAll("[data-include]"));
       if (!placeholders.length) break;
 
       const fetches = placeholders.map(async (placeholder) => {
@@ -149,7 +158,7 @@
       await Promise.all(fetches);
     }
 
-    if (contentRoot.querySelector("[data-include]")) {
+    if (root.querySelector("[data-include]")) {
       console.warn("Some inline partials could not be loaded after the maximum number of passes.");
     }
   }
@@ -682,7 +691,6 @@
   // Bring it all together
   async function init() {
     await loadAllSections();
-    await loadInlinePartials();
     buildTocFromHeadings();
     wireTocClicks();
     wireInlineAnchorLinks();

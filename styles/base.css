@@ -307,6 +307,14 @@ a:hover {
   border-bottom-style: solid;
 }
 
+/* Responsive images inside content sections */
+.content-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.1rem 0;
+}
+
 /* ---------- Glossary (optional) ---------- */
 
 /* Glossary wrapper */
