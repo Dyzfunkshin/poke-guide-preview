@@ -15,6 +15,8 @@
     "content/worth.html",
     "content/tracking.html",
     "content/grading.html",
+    "content/errors.html",
+    "content/shipping.html",
     "content/contact.html",
     "content/support.html"
   ];
