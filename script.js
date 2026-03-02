@@ -21,6 +21,9 @@
     "content/support.html"
   ];
   const VERSION_ENDPOINT = "version.json";
+  const LINKS_ENDPOINT = "content/links.json";
+  const PRELOADED_SECTIONS_TEMPLATE_ID = "preloaded-sections";
+  let linkRegistry = null;
 
   function getNavContainer() {
     if (!tocRoot) return null;
@@ -66,6 +69,65 @@
     if (statusEl) statusEl.remove();
   }
 
+  function getHrefFromLinkEntry(entry) {
+    if (typeof entry === "string") return entry;
+    if (entry && typeof entry === "object" && typeof entry.href === "string") {
+      return entry.href;
+    }
+    return "";
+  }
+
+  async function loadLinkRegistry() {
+    try {
+      const response = await fetch(LINKS_ENDPOINT, { cache: "no-cache" });
+      if (!response.ok) {
+        throw new Error(`Link registry responded with ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (!data || typeof data !== "object") {
+        throw new Error("Link registry payload is invalid");
+      }
+
+      linkRegistry = data;
+    } catch (error) {
+      console.error("Failed to load link registry:", error);
+      linkRegistry = {};
+    }
+  }
+
+  function applyLinkRegistry(root = document) {
+    if (!root || !linkRegistry || typeof linkRegistry !== "object") return;
+
+    const keyedAnchors = root.querySelectorAll("a[data-link-key]");
+    keyedAnchors.forEach((anchor) => {
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+
+      const key = anchor.dataset.linkKey;
+      if (!key) return;
+
+      const href = getHrefFromLinkEntry(linkRegistry[key]);
+      if (!href) {
+        console.warn(`No href found for link key "${key}"`);
+        return;
+      }
+
+      anchor.setAttribute("href", href);
+    });
+  }
+
+  function getPreloadedSectionNodes() {
+    const template = document.getElementById(PRELOADED_SECTIONS_TEMPLATE_ID);
+    if (!(template instanceof HTMLTemplateElement)) return [];
+
+    const fragment = template.content.cloneNode(true);
+    if (!(fragment instanceof DocumentFragment)) return [];
+
+    return Array.from(fragment.children).filter(
+      (el) => el instanceof HTMLElement && el.tagName.toLowerCase() === "section"
+    );
+  }
+
   // How we decide when to switch active headings while scrolling
   // 0.5  → switch when the top of the screen is halfway between headings
   // 0.3  → switch earlier (closer to the previous heading)
@@ -79,6 +141,17 @@
 
   // 1) Load all content sections into <main id="content">
   async function loadAllSections() {
+    const preloadedSections = getPreloadedSectionNodes();
+    if (preloadedSections.length) {
+      for (const sectionEl of preloadedSections) {
+        contentRoot.appendChild(sectionEl);
+      }
+      clearNavStatus();
+      clearContentStatus();
+      adjustBottomPaddingForLastSection();
+      return;
+    }
+
     const loadErrors = [];
     const sectionPromises = sectionsToLoad.map(async (file) => {
       try {
@@ -693,6 +766,8 @@
   // Bring it all together
   async function init() {
     await loadAllSections();
+    await loadLinkRegistry();
+    applyLinkRegistry(document);
     buildTocFromHeadings();
     wireTocClicks();
     wireInlineAnchorLinks();
