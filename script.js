@@ -145,6 +145,39 @@
     });
   }
 
+  function initSupportButtonFonts(root = document) {
+    if (!root) return;
+
+    const loadCookieFont = () => {
+      if (document.getElementById("font-cookie")) return;
+
+      const link = document.createElement("link");
+      link.id = "font-cookie";
+      link.rel = "stylesheet";
+      link.href = "https://fonts.googleapis.com/css2?family=Cookie&display=swap";
+      document.head.appendChild(link);
+    };
+
+    const target = root.querySelector(".support-fallback--bmc");
+    if (!(target instanceof HTMLElement)) return;
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          observer.disconnect();
+          loadCookieFont();
+        },
+        { rootMargin: "400px 0px" }
+      );
+
+      observer.observe(target);
+      return;
+    }
+
+    loadCookieFont();
+  }
+
   // How we decide when to switch active headings while scrolling
   // 0.5  → switch when the top of the screen is halfway between headings
   // 0.3  → switch earlier (closer to the previous heading)
@@ -787,6 +820,7 @@
     await loadAllSections();
     await loadLinkRegistry();
     applyLinkRegistry(document);
+    initSupportButtonFonts(document);
     buildTocFromHeadings();
     wireTocClicks();
     wireInlineAnchorLinks();
