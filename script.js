@@ -116,16 +116,33 @@
     });
   }
 
-  function getPreloadedSectionNodes() {
+  function getPreloadedContentNodes() {
     const template = document.getElementById(PRELOADED_SECTIONS_TEMPLATE_ID);
     if (!(template instanceof HTMLTemplateElement)) return [];
 
     const fragment = template.content.cloneNode(true);
     if (!(fragment instanceof DocumentFragment)) return [];
 
-    return Array.from(fragment.children).filter(
-      (el) => el instanceof HTMLElement && el.tagName.toLowerCase() === "section"
-    );
+    return Array.from(fragment.children).filter((el) => el instanceof HTMLElement);
+  }
+
+  function activateEmbeddedScripts(root) {
+    if (!(root instanceof HTMLElement)) return;
+
+    const embeddedScripts = Array.from(root.querySelectorAll("script"));
+    embeddedScripts.forEach((oldScript) => {
+      const liveScript = document.createElement("script");
+
+      for (const { name, value } of Array.from(oldScript.attributes)) {
+        liveScript.setAttribute(name, value);
+      }
+
+      if (oldScript.textContent) {
+        liveScript.textContent = oldScript.textContent;
+      }
+
+      oldScript.replaceWith(liveScript);
+    });
   }
 
   // How we decide when to switch active headings while scrolling
@@ -141,10 +158,11 @@
 
   // 1) Load all content sections into <main id="content">
   async function loadAllSections() {
-    const preloadedSections = getPreloadedSectionNodes();
-    if (preloadedSections.length) {
-      for (const sectionEl of preloadedSections) {
-        contentRoot.appendChild(sectionEl);
+    const preloadedNodes = getPreloadedContentNodes();
+    if (preloadedNodes.length) {
+      for (const node of preloadedNodes) {
+        contentRoot.appendChild(node);
+        activateEmbeddedScripts(node);
       }
       clearNavStatus();
       clearContentStatus();
@@ -183,6 +201,7 @@
       const sectionEl = await sectionPromise;
       if (sectionEl) {
         contentRoot.appendChild(sectionEl);
+        activateEmbeddedScripts(sectionEl);
       }
     }
 
