@@ -145,37 +145,151 @@
     });
   }
 
-  function initSupportButtonFonts(root = document) {
-    if (!root) return;
+  function initBuyMeACoffeeButton(root = document) {
+    const log = (...args) => console.info("[BMC]", ...args);
+    const warn = (...args) => console.warn("[BMC]", ...args);
+    const isDocumentNode = (value) => !!value && value.nodeType === 9;
+    const isElementNode = (value) => !!value && value.nodeType === 1;
 
-    const loadCookieFont = () => {
-      if (document.getElementById("font-cookie")) return;
+    if (!root) {
+      warn("No root provided; aborting button init.");
+      return;
+    }
 
-      const link = document.createElement("link");
-      link.id = "font-cookie";
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Cookie&display=swap";
-      document.head.appendChild(link);
+    const mount = root.querySelector(".support-button[data-bmc-button]");
+    if (!(mount instanceof HTMLElement)) {
+      warn("Support button mount not found.");
+      return;
+    }
+    if (mount.dataset.bmcInitialized === "true") {
+      log("Button mount already initialized; skipping.");
+      return;
+    }
+
+    mount.dataset.bmcInitialized = "true";
+    log("Button mount found.", { slug: mount.dataset.bmcSlug || "poke_guide" });
+
+    const injectButtonAssets = (sourceDoc) => {
+      if (!isDocumentNode(sourceDoc)) return;
+
+      const styleSource = sourceDoc.querySelector("style");
+      if (styleSource && !document.getElementById("bmc-button-style")) {
+        const style = document.createElement("style");
+        style.id = "bmc-button-style";
+        style.textContent = styleSource.textContent || "";
+        document.head.appendChild(style);
+        log("Injected vendor button styles into host document.");
+      }
+
+      const fontSource = sourceDoc.querySelector('link[rel="stylesheet"]');
+      if (isElementNode(fontSource) && fontSource.tagName === "LINK" && !document.getElementById("bmc-button-font")) {
+        const fontLink = document.createElement("link");
+        fontLink.id = "bmc-button-font";
+        fontLink.rel = "stylesheet";
+        fontLink.href = fontSource.href;
+        document.head.appendChild(fontLink);
+        log("Injected vendor button font stylesheet into host document.");
+      }
     };
 
-    const target = root.querySelector(".support-fallback--bmc");
-    if (!(target instanceof HTMLElement)) return;
+    const mountVendorButton = (sourceDoc) => {
+      if (!isDocumentNode(sourceDoc)) return false;
+
+      const widget = sourceDoc.querySelector(".bmc-btn-container");
+      if (!isElementNode(widget)) return false;
+
+      injectButtonAssets(sourceDoc);
+      const clone = widget.cloneNode(true);
+      const buttonLink = clone.querySelector("a.bmc-btn");
+      if (isElementNode(buttonLink) && buttonLink.tagName === "A") {
+        const href = getHrefFromLinkEntry(linkRegistry?.external_buymeacoffee);
+        if (href) {
+          buttonLink.href = href;
+        } else {
+          warn("No external_buymeacoffee href found in link registry.");
+        }
+      }
+
+      mount.replaceChildren(clone);
+      log("Vendor button mounted into support section.");
+      return true;
+    };
+
+    const loadVendorButton = () => {
+      if (mount.dataset.bmcLoading === "true") {
+        log("Vendor button load already in progress; skipping duplicate start.");
+        return;
+      }
+      mount.dataset.bmcLoading = "true";
+      log("Starting vendor button load.");
+
+      const iframe = document.createElement("iframe");
+      iframe.setAttribute("aria-hidden", "true");
+      iframe.tabIndex = -1;
+      iframe.style.position = "absolute";
+      iframe.style.width = "0";
+      iframe.style.height = "0";
+      iframe.style.border = "0";
+      iframe.style.opacity = "0";
+      iframe.style.pointerEvents = "none";
+      iframe.style.left = "-9999px";
+
+      const cleanup = () => {
+        iframe.remove();
+        log("Cleaned up offscreen iframe.");
+      };
+
+      const slug = mount.dataset.bmcSlug || "poke_guide";
+      iframe.addEventListener("load", () => {
+        log("Iframe loaded; polling for vendor widget.");
+        const startedAt = Date.now();
+        const maxWaitMs = 10000;
+        const intervalId = window.setInterval(() => {
+          const doc = iframe.contentDocument;
+          if (mountVendorButton(doc)) {
+            window.clearInterval(intervalId);
+            cleanup();
+            return;
+          }
+
+          if (Date.now() - startedAt >= maxWaitMs) {
+            window.clearInterval(intervalId);
+            const frameWindow = iframe.contentWindow;
+            warn("Timed out waiting for vendor widget.", {
+              scriptStatus: frameWindow?.__bmcScriptStatus || "unknown",
+              readyState: doc?.readyState || "unknown",
+              widgetPresent: !!doc?.querySelector(".bmc-btn-container"),
+              scriptPresent: !!doc?.querySelector('script[data-name="bmc-button"]')
+            });
+            cleanup();
+          }
+        }, 100);
+      }, { once: true });
+
+      iframe.srcdoc = `<!doctype html><html><head><meta charset="utf-8"></head><body><script src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" onload="window.__bmcScriptStatus='loaded'" onerror="window.__bmcScriptStatus='error'" data-name="bmc-button" data-slug="${slug}" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff"></script></body></html>`;
+      document.body.appendChild(iframe);
+      log("Offscreen iframe appended; waiting for vendor script.");
+    };
 
     if ("IntersectionObserver" in window) {
+      const triggerTarget = mount.closest("section") || mount;
+      log("IntersectionObserver available; waiting for support section to approach viewport.");
       const observer = new IntersectionObserver(
         (entries) => {
           if (!entries.some((entry) => entry.isIntersecting)) return;
           observer.disconnect();
-          loadCookieFont();
+          log("Support section intersected viewport; triggering vendor button load.");
+          loadVendorButton();
         },
         { rootMargin: "400px 0px" }
       );
 
-      observer.observe(target);
+      observer.observe(triggerTarget);
       return;
     }
 
-    loadCookieFont();
+    log("IntersectionObserver unavailable; loading vendor button immediately.");
+    loadVendorButton();
   }
 
   // How we decide when to switch active headings while scrolling
@@ -820,7 +934,7 @@
     await loadAllSections();
     await loadLinkRegistry();
     applyLinkRegistry(document);
-    initSupportButtonFonts(document);
+    initBuyMeACoffeeButton(document);
     buildTocFromHeadings();
     wireTocClicks();
     wireInlineAnchorLinks();

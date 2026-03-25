@@ -20,6 +20,7 @@ const sectionsToLoad = [
 
 const INCLUDE_PLACEHOLDER_PATTERN =
   /<([a-z0-9-]+)\b[^>]*\bdata-include="([^"]+)"[^>]*>\s*<\/\1>/gi;
+const VERSION_FILE = "version.json";
 
 function toPosix(relPath) {
   return relPath.split(path.sep).join("/");
@@ -223,6 +224,53 @@ async function injectPreloadedSections(sectionsHtml, outputDir) {
   await fs.writeFile(indexPath, indexHtml, "utf8");
 }
 
+async function getAssetVersionToken(outputDir) {
+  try {
+    const versionPath = path.join(outputDir, VERSION_FILE);
+    const raw = await fs.readFile(versionPath, "utf8");
+    const data = JSON.parse(raw);
+
+    const parts = [];
+    if (typeof data.version === "string" && data.version) {
+      parts.push(data.version.trim());
+    }
+    if (typeof data.commit === "string" && data.commit) {
+      parts.push(data.commit.trim());
+    }
+
+    if (!parts.length && typeof data.generatedAt === "string" && data.generatedAt) {
+      parts.push(data.generatedAt.replace(/[^0-9]/g, "").slice(0, 14));
+    }
+
+    return parts.filter(Boolean).join("-");
+  } catch {
+    return "";
+  }
+}
+
+async function injectAssetVersioning(outputDir) {
+  const versionToken = await getAssetVersionToken(outputDir);
+  if (!versionToken) return;
+
+  const indexPath = path.join(outputDir, "index.html");
+  let indexHtml = await fs.readFile(indexPath, "utf8");
+
+  const versionedAssets = [
+    "styles/base.css",
+    "styles/nav.css",
+    "styles/layout.css",
+    "script.js"
+  ];
+
+  for (const assetPath of versionedAssets) {
+    const escapedPath = assetPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp(`(["'])(${escapedPath})(\\?[^"']*)?\\1`, "g");
+    indexHtml = indexHtml.replace(pattern, `$1${assetPath}?v=${versionToken}$1`);
+  }
+
+  await fs.writeFile(indexPath, indexHtml, "utf8");
+}
+
 async function main() {
   const target = parseTarget();
   const outputDir = getOutputDir(target);
@@ -232,6 +280,7 @@ async function main() {
 
   const sectionsHtml = await buildSectionsHtml();
   await injectPreloadedSections(sectionsHtml, outputDir);
+  await injectAssetVersioning(outputDir);
 
   console.log(`Built ${path.basename(outputDir)} for ${target} with preloaded sections.`);
 }

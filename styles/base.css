@@ -370,65 +370,6 @@ a:hover {
   justify-content: center;
 }
 
-.support-fallback {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.55rem 0.95rem;
-  background: var(--accent);
-  color: #000;
-  font-weight: 700;
-  border-radius: 0.6rem;
-  border: 1px solid #000;
-  text-decoration: none;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
-}
-
-.support-fallback:hover {
-  background: var(--accent-strong);
-}
-
-.support-fallback--bmc {
-  min-width: 210px;
-  height: 60px;
-  padding: 0 24px;
-  gap: 0.5rem;
-  border: 0;
-  border-radius: 12px;
-  background: #ffdd00;
-  color: #000;
-  box-shadow: none;
-  font-family: Cookie, cursive;
-  font-size: 28px;
-  font-weight: 400;
-  line-height: 1;
-}
-
-.support-fallback--bmc:hover {
-  background: #ffdd00;
-  transform: translateY(-1px);
-}
-
-.support-fallback--bmc svg {
-  height: 32px;
-  width: auto;
-  flex-shrink: 0;
-}
-
-.support-fallback--bmc .bmc-logo-outline {
-  fill: #000;
-}
-
-.support-fallback--bmc .bmc-logo-coffee {
-  fill: #fff;
-}
-
-.support-fallback__text {
-  display: inline-block;
-  white-space: nowrap;
-  line-height: 1;
-}
-
 /* Content-level status block (errors) */
 .content-status {
   width: 100%;
