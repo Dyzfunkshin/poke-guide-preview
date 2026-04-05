@@ -2,7 +2,11 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const REPO_ROOT = path.join(__dirname, "..");
-const PRELOADED_SECTIONS_TEMPLATE_ID = "preloaded-sections";
+const VERSION_FILE = "version.json";
+const INLINE_JSON_SCRIPTS = [
+  { id: "link-registry-data", file: path.join("content", "links.json") },
+  { id: "version-data", file: VERSION_FILE }
+];
 
 const sectionsToLoad = [
   "content/welcome.html",
@@ -20,7 +24,6 @@ const sectionsToLoad = [
 
 const INCLUDE_PLACEHOLDER_PATTERN =
   /<([a-z0-9-]+)\b[^>]*\bdata-include="([^"]+)"[^>]*>\s*<\/\1>/gi;
-const VERSION_FILE = "version.json";
 
 function toPosix(relPath) {
   return relPath.split(path.sep).join("/");
@@ -202,23 +205,40 @@ async function buildSectionsHtml() {
   return renderedSections.join("\n\n");
 }
 
-async function injectPreloadedSections(sectionsHtml, outputDir) {
+async function injectRenderedSections(sectionsHtml, outputDir) {
   const indexPath = path.join(outputDir, "index.html");
-  const templateBlock =
-    `\n  <template id="${PRELOADED_SECTIONS_TEMPLATE_ID}">\n${sectionsHtml}\n  </template>\n\n`;
-
   let indexHtml = await fs.readFile(indexPath, "utf8");
-  indexHtml = indexHtml.replace(
-    new RegExp(`<template id="${PRELOADED_SECTIONS_TEMPLATE_ID}">[\\s\\S]*?<\\/template>\\s*`, "g"),
-    ""
-  );
 
-  if (indexHtml.includes('<script src="script.js"></script>')) {
-    indexHtml = indexHtml.replace('<script src="script.js"></script>', `${templateBlock}  <script src="script.js"></script>`);
-  } else if (indexHtml.includes("</body>")) {
-    indexHtml = indexHtml.replace("</body>", `${templateBlock}</body>`);
-  } else {
-    throw new Error("Could not find insertion point for preloaded sections in index.html");
+  const marker = "<!-- Sections are injected by script.js -->";
+  if (!indexHtml.includes(marker)) {
+    throw new Error("Could not find section insertion marker in index.html");
+  }
+
+  indexHtml = indexHtml.replace(marker, `${sectionsHtml}\n      ${marker}`);
+  await fs.writeFile(indexPath, indexHtml, "utf8");
+}
+
+function serializeJsonForHtmlScript(data) {
+  return JSON.stringify(data).replace(/</g, "\\u003C");
+}
+
+async function injectInlineJsonData(outputDir) {
+  const indexPath = path.join(outputDir, "index.html");
+  let indexHtml = await fs.readFile(indexPath, "utf8");
+
+  for (const entry of INLINE_JSON_SCRIPTS) {
+    const scriptPath = path.join(outputDir, entry.file);
+    const rawJson = await fs.readFile(scriptPath, "utf8");
+    const json = JSON.parse(rawJson);
+    const pattern = new RegExp(`<script id="${entry.id}" type="application/json">[\\s\\S]*?<\\/script>`);
+    const replacement =
+      `<script id="${entry.id}" type="application/json">${serializeJsonForHtmlScript(json)}</script>`;
+
+    if (!pattern.test(indexHtml)) {
+      throw new Error(`Could not find inline JSON script placeholder for ${entry.id}`);
+    }
+
+    indexHtml = indexHtml.replace(pattern, replacement);
   }
 
   await fs.writeFile(indexPath, indexHtml, "utf8");
@@ -259,7 +279,8 @@ async function injectAssetVersioning(outputDir) {
     "styles/base.css",
     "styles/nav.css",
     "styles/layout.css",
-    "script.js"
+    "script.js",
+    "images/logo-512.png"
   ];
 
   for (const assetPath of versionedAssets) {
@@ -279,10 +300,11 @@ async function main() {
   await copyTree(REPO_ROOT, outputDir, target);
 
   const sectionsHtml = await buildSectionsHtml();
-  await injectPreloadedSections(sectionsHtml, outputDir);
+  await injectRenderedSections(sectionsHtml, outputDir);
+  await injectInlineJsonData(outputDir);
   await injectAssetVersioning(outputDir);
 
-  console.log(`Built ${path.basename(outputDir)} for ${target} with preloaded sections.`);
+  console.log(`Built ${path.basename(outputDir)} for ${target} with rendered sections.`);
 }
 
 main().catch((error) => {

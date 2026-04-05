@@ -23,6 +23,8 @@
   const VERSION_ENDPOINT = "version.json";
   const LINKS_ENDPOINT = "content/links.json";
   const PRELOADED_SECTIONS_TEMPLATE_ID = "preloaded-sections";
+  const INLINE_LINK_REGISTRY_SCRIPT_ID = "link-registry-data";
+  const INLINE_VERSION_SCRIPT_ID = "version-data";
   let linkRegistry = null;
 
   function getNavContainer() {
@@ -77,7 +79,28 @@
     return "";
   }
 
+  function parseInlineJsonScript(scriptId) {
+    const dataScript = document.getElementById(scriptId);
+    if (!(dataScript instanceof HTMLScriptElement)) return null;
+
+    const rawJson = dataScript.textContent?.trim();
+    if (!rawJson) return null;
+
+    try {
+      return JSON.parse(rawJson);
+    } catch (error) {
+      console.error(`Failed to parse inline JSON for ${scriptId}:`, error);
+      return null;
+    }
+  }
+
   async function loadLinkRegistry() {
+    const inlineRegistry = parseInlineJsonScript(INLINE_LINK_REGISTRY_SCRIPT_ID);
+    if (inlineRegistry && typeof inlineRegistry === "object") {
+      linkRegistry = inlineRegistry;
+      return;
+    }
+
     try {
       const response = await fetch(LINKS_ENDPOINT, { cache: "no-cache" });
       if (!response.ok) {
@@ -124,6 +147,12 @@
     if (!(fragment instanceof DocumentFragment)) return [];
 
     return Array.from(fragment.children).filter((el) => el instanceof HTMLElement);
+  }
+
+  function getServerRenderedSections() {
+    return Array.from(contentRoot.children).filter(
+      (child) => child instanceof HTMLElement && child.tagName === "SECTION"
+    );
   }
 
   function activateEmbeddedScripts(root) {
@@ -305,6 +334,14 @@
 
   // 1) Load all content sections into <main id="content">
   async function loadAllSections() {
+    // Production builds can ship real section markup in <main> so crawlers see content without JS.
+    if (getServerRenderedSections().length) {
+      clearNavStatus();
+      clearContentStatus();
+      adjustBottomPaddingForLastSection();
+      return;
+    }
+
     const preloadedNodes = getPreloadedContentNodes();
     if (preloadedNodes.length) {
       for (const node of preloadedNodes) {
@@ -824,7 +861,13 @@
   // When at the bottom of the page, we show the bottom of the image.
   function initBackgroundParallax() {
     const docEl = document.documentElement;
-    const body = document.body;
+    const backgroundLayer = document.querySelector(".page-background");
+    const backgroundImage = new Image();
+    backgroundImage.src = "images/background.jpg";
+
+    if (!(backgroundLayer instanceof HTMLElement)) {
+      return;
+    }
 
     function updateBackgroundPosition() {
       const scrollTop =
@@ -833,25 +876,34 @@
         docEl.scrollTop ||
         0;
 
-      const scrollHeight = docEl.scrollHeight || body.scrollHeight || 0;
+      const scrollHeight = docEl.scrollHeight || 0;
       const viewportHeight = window.innerHeight || docEl.clientHeight || 0;
 
       const maxScroll = scrollHeight - viewportHeight;
 
       if (maxScroll <= 0) {
         // No scrollable content; keep background at the top
-        body.style.backgroundPosition = "center top";
+        backgroundLayer.style.backgroundPosition = "center top";
+        return;
+      }
+
+      const imageWidth = backgroundImage.naturalWidth;
+      const imageHeight = backgroundImage.naturalHeight;
+      if (!imageWidth || !imageHeight) {
+        backgroundLayer.style.backgroundPosition = "center top";
         return;
       }
 
       // Scroll progress from 0 (top of page) to 1 (bottom of page)
       const progress = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
 
-      // Map progress -> 0% (top of image) to 100% (bottom of image)
-      const bgY = progress * 100;
+      // The background always fills the viewport width, so compute the rendered image height from that width.
+      const renderedImageHeight = (backgroundLayer.clientWidth || window.innerWidth || docEl.clientWidth || 0) * (imageHeight / imageWidth);
+      const maxImageOffset = Math.max(0, renderedImageHeight - viewportHeight);
+      const bgY = -(progress * maxImageOffset);
 
-      // Apply as CSS background-position
-      body.style.backgroundPosition = `center ${bgY}%`;
+      // Move the image from its top edge to its bottom edge over the full article scroll range.
+      backgroundLayer.style.backgroundPosition = `center ${bgY}px`;
     }
 
     // Throttle via requestAnimationFrame for smoothness
@@ -868,6 +920,7 @@
 
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize);
+    backgroundImage.addEventListener("load", updateBackgroundPosition, { once: true });
 
     // Initial position
     updateBackgroundPosition();
@@ -879,31 +932,40 @@
     const footerText = document.getElementById("site-version");
     if (!footerText) return;
 
+    const inlineVersion = parseInlineJsonScript(INLINE_VERSION_SCRIPT_ID);
+    if (inlineVersion && typeof inlineVersion === "object") {
+      updateVersionFooterText(footerText, inlineVersion);
+      return;
+    }
+
     try {
       const response = await fetch(VERSION_ENDPOINT, { cache: "no-cache" });
       if (!response.ok) {
         throw new Error(`Version endpoint responded with ${response.status}`);
       }
 
-      const data = await response.json();
-      const parts = [];
-
-      if (data.version) parts.push(`v${data.version}`);
-      if (data.commit) parts.push(data.commit);
-
-      const generated = data.generatedAt || data.builtAt || data.updatedAt;
-      if (generated && typeof generated === "string") {
-        const dateOnly = generated.split("T")[0];
-        if (dateOnly) parts.push(dateOnly);
-      }
-
-      footerText.textContent = parts.length
-        ? `Version ${parts.join(" | ")}`
-        : "Version info unavailable";
+      updateVersionFooterText(footerText, await response.json());
     } catch (error) {
       console.error("Failed to load version info:", error);
       footerText.textContent = "Version info unavailable";
     }
+  }
+
+  function updateVersionFooterText(footerText, data) {
+    const parts = [];
+
+    if (data.version) parts.push(`v${data.version}`);
+    if (data.commit) parts.push(data.commit);
+
+    const generated = data.generatedAt || data.builtAt || data.updatedAt;
+    if (generated && typeof generated === "string") {
+      const dateOnly = generated.split("T")[0];
+      if (dateOnly) parts.push(dateOnly);
+    }
+
+    footerText.textContent = parts.length
+      ? `Version ${parts.join(" | ")}`
+      : "Version info unavailable";
   }
 
   // 5) On first load, either go to the hash or to the first heading

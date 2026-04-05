@@ -66,23 +66,27 @@ body {
   /* Fallback solid color in case background image fails */
   background-color: var(--bg);
 
-  /* Shared background image for BOTH sidebar and content */
-  background-image: url("../images/background.png");
-
-  /* Scale the image to cover the entire viewport */
-  background-size: cover;
-
-  /* Do not repeat the background image */
-  background-repeat: no-repeat;
-
-  /* Position the background image (adjust center/top to taste) */
-  background-position: center top;
-
-  /* Keep the background fixed while content scrolls (parallax-friendly) */
-  background-attachment: fixed;
-
   /* Default text color for the whole page */
   color: var(--text);
+}
+
+/* Fixed background layer used for the parallax effect */
+.page-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("../images/background.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+/* Keep the interactive page content above the fixed background layer */
+.layout,
+.site-footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* Accessible skip link for keyboard users */
@@ -370,6 +374,36 @@ a:hover {
   justify-content: center;
 }
 
+/* Subtle product/resource box used for relevant affiliate recommendations */
+.resource-callout {
+  margin: 0.9rem 0 0;
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 203, 5, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 203, 5, 0.08), rgba(255, 138, 0, 0.06)),
+    rgba(6, 10, 22, 0.72);
+}
+
+.resource-callout__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-strong);
+}
+
+.resource-callout__list {
+  margin-bottom: 0.35rem;
+}
+
+.resource-callout__note {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
 /* Content-level status block (errors) */
 .content-status {
   width: 100%;
@@ -393,4 +427,11 @@ a:hover {
 [id] {
   /* Offset for scrollIntoView / hash jumps */
   scroll-margin-top: 1.7rem;
+}
+
+/* Reduced-motion users should not get the fixed background effect */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    background-attachment: scroll;
+  }
 }
