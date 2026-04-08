@@ -1,5 +1,7 @@
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const { minify: terserMinify } = require("terser");
+const CleanCSS = require("clean-css");
 
 const REPO_ROOT = path.join(__dirname, "..");
 const VERSION_FILE = "version.json";
@@ -280,7 +282,9 @@ async function injectAssetVersioning(outputDir) {
     "styles/nav.css",
     "styles/layout.css",
     "script.js",
-    "images/logo-512.png"
+    "images/logo-512.png",
+    "images/background.jpg",
+    "manifest.json"
   ];
 
   for (const assetPath of versionedAssets) {
@@ -290,6 +294,36 @@ async function injectAssetVersioning(outputDir) {
   }
 
   await fs.writeFile(indexPath, indexHtml, "utf8");
+}
+
+async function minifyAssets(outputDir) {
+  const cssFiles = [
+    path.join(outputDir, "styles", "base.css"),
+    path.join(outputDir, "styles", "nav.css"),
+    path.join(outputDir, "styles", "layout.css")
+  ];
+
+  const cleanCss = new CleanCSS({ level: 1 });
+  for (const cssFile of cssFiles) {
+    const css = await fs.readFile(cssFile, "utf8");
+    const result = cleanCss.minify(css);
+    if (result.errors.length > 0) {
+      console.warn(`CSS minification errors for ${path.basename(cssFile)}:`, result.errors);
+    } else {
+      await fs.writeFile(cssFile, result.styles, "utf8");
+    }
+  }
+
+  const jsFile = path.join(outputDir, "script.js");
+  const js = await fs.readFile(jsFile, "utf8");
+  const result = await terserMinify(js, { compress: { passes: 2 }, mangle: true });
+  if (result.error) {
+    console.warn("JS minification error:", result.error);
+  } else if (result.code) {
+    await fs.writeFile(jsFile, result.code, "utf8");
+  }
+
+  console.log("Minified CSS and JS assets.");
 }
 
 async function main() {
@@ -303,6 +337,7 @@ async function main() {
   await injectRenderedSections(sectionsHtml, outputDir);
   await injectInlineJsonData(outputDir);
   await injectAssetVersioning(outputDir);
+  await minifyAssets(outputDir);
 
   console.log(`Built ${path.basename(outputDir)} for ${target} with rendered sections.`);
 }

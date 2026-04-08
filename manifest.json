@@ -1,0 +1,17 @@
+{
+  "name": "Poke Guide",
+  "short_name": "PokeGuide",
+  "description": "A practical Pokemon card guide for identifying, pricing, grading, storing, and shipping cards safely.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#05060b",
+  "theme_color": "#05060b",
+  "icons": [
+    {
+      "src": "images/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -3,6 +3,7 @@
 
 <head>
   <meta name="impact-site-verification" value="cc2b5acd-829b-497e-b149-012d608b830d">
+  <meta name="google-site-verification" content="1a6fa4e0030840dd">
   <meta charset="UTF-8">
   <title>Pokemon Card Guide | Poke Guide</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +13,10 @@
   <meta name="theme-color" content="#05060b">
   <link rel="canonical" href="https://poke-guide.com/">
   <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png?v=1.0.0-db704a6">
-  <link rel="apple-touch-icon" href="images/logo-512.png?v=1.0.0-db704a6">
+  <link rel="manifest" href="manifest.json?v=1.0.0-cfb3715">
+  <link rel="preload" href="images/background.jpg?v=1.0.0-cfb3715" as="image">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png?v=1.0.0-cfb3715">
+  <link rel="apple-touch-icon" href="images/logo-512.png?v=1.0.0-cfb3715">
   <meta property="og:site_name" content="Poke Guide">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pokemon Card Guide | Poke Guide">
@@ -28,9 +31,9 @@
   <meta name="twitter:description"
     content="A practical Pokemon card guide for identifying cards, pricing them, grading them, storing them, and shipping them safely.">
   <meta name="twitter:image" content="https://poke-guide.com/images/logo-512.png">
-  <link rel="stylesheet" href="styles/base.css?v=1.0.0-db704a6">
-  <link rel="stylesheet" href="styles/nav.css?v=1.0.0-db704a6">
-  <link rel="stylesheet" href="styles/layout.css?v=1.0.0-db704a6">
+  <link rel="stylesheet" href="styles/base.css?v=1.0.0-cfb3715">
+  <link rel="stylesheet" href="styles/nav.css?v=1.0.0-cfb3715">
+  <link rel="stylesheet" href="styles/layout.css?v=1.0.0-cfb3715">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,6 +58,28 @@
           "inLanguage": "en-US"
         },
         {
+          "@type": "SiteNavigationElement",
+          "@id": "https://poke-guide.com/#navigation",
+          "name": [
+            "How to Identify Your Card",
+            "Card Condition",
+            "Card Care and Storage",
+            "What Is My Card Worth?",
+            "Tracking Your Collection",
+            "Grading",
+            "Shipping"
+          ],
+          "url": [
+            "https://poke-guide.com/#identify",
+            "https://poke-guide.com/#condition",
+            "https://poke-guide.com/#card-care",
+            "https://poke-guide.com/#worth",
+            "https://poke-guide.com/#tracking",
+            "https://poke-guide.com/#grading",
+            "https://poke-guide.com/#shipping"
+          ]
+        },
+        {
           "@type": "FAQPage",
           "@id": "https://poke-guide.com/#faq",
           "mainEntity": [
@@ -71,7 +96,7 @@
               "name": "How can I tell what a Pokemon card is worth?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Use recent sold listings on eBay and market data on tools like TCGPlayer, then compare against the card's condition."
+                "text": "Use recent sold listings on eBay and market data on tools like TCGPlayer, then compare against the card's condition. PriceCharting is also useful for tracking price trends over time."
               }
             },
             {
@@ -79,7 +104,7 @@
               "name": "When should I grade a Pokemon card?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Grade cards when the card is valuable enough, authentic, and in strong enough condition that grading fees make sense."
+                "text": "Grade cards when the card is valuable enough, authentic, and in strong enough condition that grading fees make sense. Consider both the card's market value and your personal attachment to it."
               }
             },
             {
@@ -87,7 +112,7 @@
               "name": "What is the safest way to store Pokemon cards?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Use penny sleeves, then toploaders or binders made from safe materials, and keep cards in a clean, dry environment."
+                "text": "Use penny sleeves, then toploaders or binders made from safe materials, and keep cards in a clean, dry environment away from direct sunlight and humidity."
               }
             },
             {
@@ -95,7 +120,71 @@
               "name": "How should I ship a Pokemon card safely?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sleeve the card, secure it in a toploader or card saver, and protect it inside a mailer or box so it cannot move in transit."
+                "text": "Sleeve the card, secure it in a toploader or card saver, and protect it inside a bubble mailer or rigid box so it cannot move in transit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are Pokemon card condition grades?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Pokemon cards are graded as Near Mint (NM), Lightly Played (LP), Moderately Played (MP), Heavily Played (HP), and Damaged. NM cards show no visible wear and are worth significantly more than lower-condition copies."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a 1st Edition Pokemon card?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A 1st Edition Pokemon card has a small \"Edition 1\" stamp printed below the featured image on the left side of the card. First Edition cards from early sets are typically the most valuable print run of a given card."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a Shadowless Pokemon card?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Shadowless Pokemon cards are a transitional early print run from the WOTC era that lack the drop shadow along the right side of the card image frame. They are rarer than Unlimited print cards and carry a significant premium for collectors."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a set symbol on a Pokemon card?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The set symbol is a small icon printed in the lower right area of a Pokemon card that identifies which expansion it came from. You can cross-reference the symbol against databases like Bulbapedia to identify the exact set."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What do grading companies look for when grading a Pokemon card?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Grading companies evaluate four areas: centering (border widths on all sides), corners (whitening, bends, and dings), edges (chipping and nicks), and surface (scratches, print lines, dents, and stains). Each area is scored and combined into a final numeric grade."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Which companies grade Pokemon cards?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The most recognized Pokemon card grading companies are PSA, CGC, and Beckett (BGS). Newer companies like TAG and ACE offer lower fees and faster turnaround. PSA grades are generally the most widely recognized in the secondary market."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between a raw and a graded Pokemon card?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A raw card is ungraded and sold as-is, with the buyer assessing condition themselves. A graded card has been professionally evaluated, assigned a numeric score, and sealed in a tamper-evident plastic case called a slab. Graded cards often command higher prices because the condition is independently verified."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I track my Pokemon card collection?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Popular collection tracking tools include Collectr, PriceCharting, and Card-Codex. These apps let you log your cards, track their value over time, and see your total portfolio worth."
               }
             }
           ]
@@ -113,7 +202,7 @@
     <!-- Sidebar navigation -->
     <aside id="toc" class="sidebar" aria-label="Table of contents">
       <div class="site-header">
-        <img src="images/logo-512.png?v=1.0.0-db704a6" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
+        <img src="images/logo-512.png?v=1.0.0-cfb3715" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
           fetchpriority="high" decoding="async">
         <div class="site-title">POKE GUIDE</div>
       </div>
@@ -1270,8 +1359,8 @@
 
   <!-- Build output can inline these JSON blobs so the page avoids extra startup fetches. -->
   <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/?ref=97A81","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/"}</script>
-  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"db704a6","generatedAt":"2026-04-05T05:46:23.885Z"}</script>
-  <script src="script.js?v=1.0.0-db704a6"></script>
+  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"cfb3715","generatedAt":"2026-04-08T06:08:31.006Z"}</script>
+  <script src="script.js?v=1.0.0-cfb3715"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"

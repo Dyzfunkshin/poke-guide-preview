@@ -19,9 +19,11 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@playwright/test": "^1.45.0",
+    "clean-css": "^5.3.3",
     "eslint": "^8.57.0",
     "html-validate": "^8.7.3",
     "stylelint": "^16.2.1",
-    "stylelint-config-standard": "^36.0.0"
+    "stylelint-config-standard": "^36.0.0",
+    "terser": "^5.31.0"
   }
 }
