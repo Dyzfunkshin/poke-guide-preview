@@ -17,6 +17,7 @@ const sectionsToLoad = [
   "content/card-care.html",
   "content/worth.html",
   "content/tracking.html",
+  "content/master-sets.html",
   "content/grading.html",
   "content/errors.html",
   "content/shipping.html",

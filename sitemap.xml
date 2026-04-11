@@ -37,6 +37,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://poke-guide.com/#master-sets</loc>
+    <lastmod>2026-04-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://poke-guide.com/#grading</loc>
     <lastmod>2026-04-08</lastmod>
     <changefreq>monthly</changefreq>
