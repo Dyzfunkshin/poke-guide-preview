@@ -10,6 +10,15 @@
     "ecmaVersion": "latest",
     "sourceType": "script"
   },
+  "overrides": [
+    {
+      "files": ["scripts/**/*.js"],
+      "env": {
+        "node": true,
+        "browser": false
+      }
+    }
+  ],
   "rules": {
     "no-unused-vars": [
       "warn",

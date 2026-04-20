@@ -32,6 +32,14 @@
 - The ToC builder expects `<h2>/<h3>/<h4>` ids; it will auto-slug missing ids.
 - If preview target changes, update `external_repository` in `deploy-preview.yml` and ensure `PREVIEW_TOKEN` covers that repo.
 
+## TCGPlayer affiliate redirect
+- Static redirect route: `/go/tcgplayer/?url=<encoded-tcgplayer-product-url>`
+- The page allowlists `tcgplayer.com` product URLs only and canonicalizes them to `https://www.tcgplayer.com/product/{id}/{slug}` before redirecting through Impact.
+- Impact base link: `https://partner.tcgplayer.com/c/7099234/1830156/21018`
+- Lois helper scripts:
+  - `node scripts/tcgplayer-clean-url.js '<raw-tcgplayer-url>'`
+  - `node scripts/tcgplayer-build-redirect.js '<raw-tcgplayer-url>'`
+
 ## Local tests (lint + basic UI checks)
 1) Install tools once: `npm install` (dev deps: html-validate, stylelint, eslint, Playwright, axe-core).
 2) Run all checks: `npm test` (lints HTML/CSS/JS, then runs Playwright ToC scroll test and axe accessibility scan).
