@@ -10,15 +10,16 @@
     "tcgplayer:clean": "node scripts/tcgplayer-clean-url.js",
     "tcgplayer:redirect": "node scripts/tcgplayer-build-redirect.js",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
-    "lint:html": "html-validate index.html content/**/*.html go/**/*.html",
+    "lint:html": "html-validate index.html pricing/index.html content/**/*.html go/**/*.html",
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
     "lint:js": "eslint script.js prices.js scripts/**/*.js",
     "postversion": "npm run generate:version",
-    "test": "npm run lint && npm run test:toc && npm run test:navigation && npm run test:axe && npm run test:prices",
+    "test": "npm run lint && npm run test:toc && npm run test:navigation && npm run test:axe && npm run test:prices && npm run test:top-nav",
     "test:toc": "playwright test tests/toc.spec.js",
     "test:navigation": "playwright test tests/navigation.spec.js",
     "test:axe": "playwright test tests/axe.spec.js",
-    "test:prices": "playwright test tests/prices.spec.js"
+    "test:prices": "playwright test tests/prices.spec.js",
+    "test:top-nav": "playwright test tests/top-nav.spec.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",

@@ -10,13 +10,12 @@ const INLINE_JSON_SCRIPTS = [
   { id: "version-data", file: VERSION_FILE }
 ];
 
-const sectionsToLoad = [
+const GUIDE_SECTIONS = [
   "content/welcome.html",
   "content/identify.html",
   "content/condition.html",
   "content/card-care.html",
   "content/worth.html",
-  "content/prices.html",
   "content/tracking.html",
   "content/master-sets.html",
   "content/grading.html",
@@ -24,6 +23,16 @@ const sectionsToLoad = [
   "content/shipping.html",
   "content/contact.html",
   "content/support.html"
+];
+
+const PRICING_SECTIONS = ["content/prices.html"];
+
+// Every rendered page: its output HTML file (relative to the output dir) and the
+// relative prefix ("assetPrefix") needed to reach root-level assets/data from that
+// file's location.
+const PAGES = [
+  { htmlFile: "index.html", sections: GUIDE_SECTIONS, assetPrefix: "" },
+  { htmlFile: path.join("pricing", "index.html"), sections: PRICING_SECTIONS, assetPrefix: "../" }
 ];
 
 const INCLUDE_PLACEHOLDER_PATTERN =
@@ -196,10 +205,10 @@ async function resolveIncludesInHtml(html, currentDir, stack = []) {
   return result;
 }
 
-async function buildSectionsHtml() {
+async function buildSectionsHtml(sections) {
   const renderedSections = [];
 
-  for (const sectionFile of sectionsToLoad) {
+  for (const sectionFile of sections) {
     const sectionPath = path.join(REPO_ROOT, sectionFile);
     const sectionHtml = await fs.readFile(sectionPath, "utf8");
     const resolved = await resolveIncludesInHtml(sectionHtml, path.dirname(sectionPath), [sectionPath]);
@@ -209,13 +218,13 @@ async function buildSectionsHtml() {
   return renderedSections.join("\n\n");
 }
 
-async function injectRenderedSections(sectionsHtml, outputDir) {
-  const indexPath = path.join(outputDir, "index.html");
+async function injectRenderedSections(sectionsHtml, outputDir, htmlFile) {
+  const indexPath = path.join(outputDir, htmlFile);
   let indexHtml = await fs.readFile(indexPath, "utf8");
 
   const marker = "<!-- Sections are injected by script.js -->";
   if (!indexHtml.includes(marker)) {
-    throw new Error("Could not find section insertion marker in index.html");
+    throw new Error(`Could not find section insertion marker in ${htmlFile}`);
   }
 
   indexHtml = indexHtml.replace(marker, `${sectionsHtml}\n      ${marker}`);
@@ -226,8 +235,8 @@ function serializeJsonForHtmlScript(data) {
   return JSON.stringify(data).replace(/</g, "\\u003C");
 }
 
-async function injectInlineJsonData(outputDir) {
-  const indexPath = path.join(outputDir, "index.html");
+async function injectInlineJsonData(outputDir, htmlFile) {
+  const indexPath = path.join(outputDir, htmlFile);
   let indexHtml = await fs.readFile(indexPath, "utf8");
 
   for (const entry of INLINE_JSON_SCRIPTS) {
@@ -272,11 +281,11 @@ async function getAssetVersionToken(outputDir) {
   }
 }
 
-async function injectAssetVersioning(outputDir) {
+async function injectAssetVersioning(outputDir, htmlFile, assetPrefix) {
   const versionToken = await getAssetVersionToken(outputDir);
   if (!versionToken) return;
 
-  const indexPath = path.join(outputDir, "index.html");
+  const indexPath = path.join(outputDir, htmlFile);
   let indexHtml = await fs.readFile(indexPath, "utf8");
 
   const versionedAssets = [
@@ -288,7 +297,7 @@ async function injectAssetVersioning(outputDir) {
     "images/logo-512.png",
     "images/background.jpg",
     "manifest.json"
-  ];
+  ].map((relPath) => `${assetPrefix}${relPath}`);
 
   for (const assetPath of versionedAssets) {
     const escapedPath = assetPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -338,10 +347,13 @@ async function main() {
   await resetOutputDir(outputDir);
   await copyTree(REPO_ROOT, outputDir, target);
 
-  const sectionsHtml = await buildSectionsHtml();
-  await injectRenderedSections(sectionsHtml, outputDir);
-  await injectInlineJsonData(outputDir);
-  await injectAssetVersioning(outputDir);
+  for (const page of PAGES) {
+    const sectionsHtml = await buildSectionsHtml(page.sections);
+    await injectRenderedSections(sectionsHtml, outputDir, page.htmlFile);
+    await injectInlineJsonData(outputDir, page.htmlFile);
+    await injectAssetVersioning(outputDir, page.htmlFile, page.assetPrefix);
+  }
+
   await minifyAssets(outputDir);
 
   console.log(`Built ${path.basename(outputDir)} for ${target} with rendered sections.`);

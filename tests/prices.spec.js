@@ -1,13 +1,11 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-// The prices section mounts lazily on an IntersectionObserver, so none of the other specs
-// ever reach it - including the axe scan, which is the gate that is supposed to cover the
-// new charts. Every test here scrolls it into view first.
+// The prices section mounts lazily on an IntersectionObserver, but on its own page
+// (/pricing/) it is already in view on load, so no scroll-into-view is needed here.
 async function openPrices(page) {
-  await page.goto("/");
+  await page.goto("/pricing/");
   await page.waitForSelector(".nav-group");
-  await page.locator("#prices").scrollIntoViewIfNeeded();
   // Poll for the POPULATED table rather than the first row appearing. The section renders
   // a single "failed to load" row on error, so a first-row-visible wait passes on the error
   // state too - and under parallel workers the fetch can lose the race and land there.
