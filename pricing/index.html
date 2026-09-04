@@ -11,10 +11,10 @@
   <meta name="theme-color" content="#05060b">
   <link rel="canonical" href="https://poke-guide.com/pricing/">
   <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  <link rel="manifest" href="../manifest.json?v=1.0.0-e673ae3">
-  <link rel="preload" href="../images/background.jpg?v=1.0.0-e673ae3" as="image" fetchpriority="high">
-  <link rel="icon" type="image/png" sizes="512x512" href="../images/logo-512.png?v=1.0.0-e673ae3">
-  <link rel="apple-touch-icon" href="../images/logo-512.png?v=1.0.0-e673ae3">
+  <link rel="manifest" href="../manifest.json?v=1.0.0-3ef6773">
+  <link rel="preload" href="../images/background.jpg?v=1.0.0-3ef6773" as="image" fetchpriority="high">
+  <link rel="icon" type="image/png" sizes="512x512" href="../images/logo-512.png?v=1.0.0-3ef6773">
+  <link rel="apple-touch-icon" href="../images/logo-512.png?v=1.0.0-3ef6773">
   <meta property="og:site_name" content="Poke Guide">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pokemon Card Set Prices | Pricing Explorer | Poke Guide">
@@ -29,9 +29,9 @@
   <meta name="twitter:description"
     content="Explore TCGPlayer market price estimates for every Pokemon TCG set: 30-day price change, cost-to-complete totals, and coverage.">
   <meta name="twitter:image" content="https://poke-guide.com/images/logo-512.png">
-  <link rel="stylesheet" href="../styles/base.css?v=1.0.0-e673ae3">
-  <link rel="stylesheet" href="../styles/nav.css?v=1.0.0-e673ae3">
-  <link rel="stylesheet" href="../styles/layout.css?v=1.0.0-e673ae3">
+  <link rel="stylesheet" href="../styles/base.css?v=1.0.0-3ef6773">
+  <link rel="stylesheet" href="../styles/nav.css?v=1.0.0-3ef6773">
+  <link rel="stylesheet" href="../styles/layout.css?v=1.0.0-3ef6773">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,7 +55,7 @@
 <body>
   <!-- Dedicated fixed background layer so parallax does not depend on browser-specific body background behavior. -->
   <div class="page-background" aria-hidden="true">
-    <img src="../images/background.jpg?v=1.0.0-e673ae3" alt="" class="page-background-image" width="1024" height="1536"
+    <img src="../images/background.jpg?v=1.0.0-3ef6773" alt="" class="page-background-image" width="1024" height="1536"
       fetchpriority="high" decoding="async">
   </div>
   <a class="skip-link" href="#content" data-link-key="internal_content">Skip to main content</a>
@@ -69,7 +69,7 @@
     <!-- Sidebar navigation -->
     <aside id="toc" class="sidebar" aria-label="Table of contents">
       <div class="site-header">
-        <img src="../images/logo-512.png?v=1.0.0-e673ae3" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
+        <img src="../images/logo-512.png?v=1.0.0-3ef6773" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
           fetchpriority="high" decoding="async">
         <div class="site-title">POKE GUIDE</div>
       </div>
@@ -94,12 +94,26 @@
       Prices last updated: <strong data-prices-asof-value>loading…</strong>
     </p>
 
+    <div class="prices-window" data-prices-window role="group" aria-label="Change window">
+      <button type="button" class="prices-window__btn" data-window="7d" aria-pressed="false">7 days</button>
+      <button type="button" class="prices-window__btn" data-window="30d" aria-pressed="true">30 days</button>
+      <button type="button" class="prices-window__btn" data-window="90d" aria-pressed="false">90 days</button>
+      <button type="button" class="prices-window__btn" data-window="365d" aria-pressed="false">365 days</button>
+      <button type="button" class="prices-window__btn" data-window="all" aria-pressed="false">All history</button>
+    </div>
+
+    <h3 id="prices-pulse" tabindex="-1">Market pulse</h3>
+    <div class="indent-level-2">
+      <p class="prices-pulse__summary" data-prices-pulse-summary>Loading market pulse…</p>
+      <div class="prices-stats" data-prices-stats></div>
+    </div>
+
     <h3 id="prices-timeline" tabindex="-1">Set price timeline</h3>
     <div class="indent-level-2">
-      <p>
+      <p data-prices-timeline-intro>
         Every Pokémon TCG set we track, oldest on the left to newest on the right, showing each set's price change
-        over the last 30 days. Bars above the line went up, bars below went down. Select a bar (or a row in the table
-        below) to see that set's detail, including how many cards were actually priced.
+        over the selected window. Bars above the line went up, bars below went down. Select a bar (or a row in the
+        table below) to see that set's detail, including how many cards were actually priced.
       </p>
 
       <div class="prices-chart" data-prices-chart>
@@ -117,6 +131,7 @@
         <p class="prices-chart__hint">
           The chart above is a visual summary. The table below lists the same sets and numbers directly.
         </p>
+        <div class="prices-chart__legend" data-prices-chart-legend></div>
       </div>
 
       <div class="prices-detail" data-prices-detail hidden>
@@ -135,46 +150,82 @@
       </div>
     </div>
 
+    <h3 id="prices-movers" tabindex="-1">Risers and fallers</h3>
+    <div class="indent-level-2">
+      <p class="prices-movers__rule" data-prices-movers-rule></p>
+      <div class="prices-movers" data-prices-movers>
+        <section class="prices-movers__col" aria-labelledby="prices-risers-heading">
+          <h4 id="prices-risers-heading" tabindex="-1">Risers</h4>
+          <p data-prices-risers-sub></p>
+          <ol class="prices-movers__list" data-prices-risers-list></ol>
+        </section>
+        <section class="prices-movers__col" aria-labelledby="prices-fallers-heading">
+          <h4 id="prices-fallers-heading" tabindex="-1">Fallers</h4>
+          <p data-prices-fallers-sub></p>
+          <ol class="prices-movers__list" data-prices-fallers-list></ol>
+        </section>
+      </div>
+    </div>
+
+    <h3 id="prices-by-era" tabindex="-1">By era</h3>
+    <div class="indent-level-2">
+      <p data-prices-era-note></p>
+      <div class="prices-rollups" data-prices-era-rollups></div>
+      <p class="prices-panel-foot" data-prices-era-foot></p>
+    </div>
+
     <h3 id="prices-cost-to-complete" tabindex="-1">Cost to complete a set</h3>
     <div class="indent-level-2">
-      <p>
+      <p data-prices-table-intro>
         The <strong>Total (floor)</strong> column is the sum of the latest market price for every priced card in a
         set — a floor, not a finished total, whenever "priced" is fewer than "cards". A set is only ever shown as
-        complete when priced equals cards.
+        complete when priced equals cards. Select a column heading to sort.
       </p>
 
       <div class="prices-table-wrap" data-prices-table-wrap>
         <table class="prices-table" data-prices-table>
-          <caption class="sr-only">Cost to complete each Pokémon TCG set, sorted by release date</caption>
+          <caption class="sr-only">Cost to complete each Pokémon TCG set, sortable by column</caption>
           <thead>
             <tr>
-              <th scope="col">Set</th>
-              <th scope="col">Released</th>
-              <th scope="col">Priced / Cards</th>
-              <th scope="col">Total (floor)</th>
-              <th scope="col">30-day change</th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="label">Set</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="releaseDate">Released</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="eraLabel">Era</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="pricedCount">Priced / Cards</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="totalCents">Total (floor)</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="changePct">Change</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="ranked">Ranked</button></th>
             </tr>
           </thead>
           <tbody data-prices-table-body>
             <tr>
-              <td colspan="5">Loading set prices…</td>
+              <td colspan="7">Loading set prices…</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h3 id="prices-movers" tabindex="-1">Biggest movers</h3>
+    <h3 id="prices-not-in-catalog" tabindex="-1">Not in catalog</h3>
     <div class="indent-level-2">
-      <!-- Movers seam (task #165): not published this pass — the underlying data isn't
-           ready to show publicly yet. When it is, mount a "Biggest movers" list/table here
-           using data/prices/movers-{7d,30d,90d,365d,all}.json via prices.js, following the
-           same dollars-before-percent + coverage-note rules as the sections above. -->
-      <p>
-        We're still validating the data behind short-term "biggest movers" rankings before publishing them here.
-        Check back soon.
-      </p>
+      <p data-prices-unnamed-note></p>
+      <div class="prices-figures" data-prices-unnamed-figures></div>
     </div>
+
+    <h3 id="prices-programs" tabindex="-1">Distribution programs</h3>
+    <div class="indent-level-2">
+      <details class="prices-programs" data-prices-programs>
+        <summary class="prices-programs__summary" data-prices-programs-summary>Loading distribution programs…</summary>
+        <p class="prices-programs__note">
+          Promos, prize packs, jumbos and championship decks span twenty-odd years each, so they have no place on a
+          release-date axis and are kept out of the timeline and the set leaderboard above. They are counted in the
+          market totals, and they are here.
+        </p>
+        <div class="prices-rollups" data-prices-programs-rollups></div>
+        <p class="prices-panel-foot" data-prices-programs-foot></p>
+      </details>
+    </div>
+
+    <p class="prices-foot" data-prices-foot></p>
   </div>
 </section>
       <!-- Sections are injected by script.js -->
@@ -191,9 +242,9 @@
   <script type="application/json" id="page-config">{"basePath":"../","sections":["content/prices.html"]}</script>
   <!-- Build output can inline these JSON blobs so the page avoids extra startup fetches. -->
   <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_prices_heading":"pricing/#prices-heading","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_holodex":"https://www.getholodex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/?ref=97A81","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/","external_pokemasterlist":"https://pokemasterlist.vercel.app"}</script>
-  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"e673ae3","generatedAt":"2026-09-04T05:34:20.779Z"}</script>
-  <script src="../script.js?v=1.0.0-e673ae3"></script>
-  <script src="../prices.js?v=1.0.0-e673ae3"></script>
+  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"3ef6773","generatedAt":"2026-09-04T17:56:05.705Z"}</script>
+  <script src="../script.js?v=1.0.0-3ef6773"></script>
+  <script src="../prices.js?v=1.0.0-3ef6773"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"

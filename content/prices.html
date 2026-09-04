@@ -10,12 +10,26 @@
       Prices last updated: <strong data-prices-asof-value>loading…</strong>
     </p>
 
+    <div class="prices-window" data-prices-window role="group" aria-label="Change window">
+      <button type="button" class="prices-window__btn" data-window="7d" aria-pressed="false">7 days</button>
+      <button type="button" class="prices-window__btn" data-window="30d" aria-pressed="true">30 days</button>
+      <button type="button" class="prices-window__btn" data-window="90d" aria-pressed="false">90 days</button>
+      <button type="button" class="prices-window__btn" data-window="365d" aria-pressed="false">365 days</button>
+      <button type="button" class="prices-window__btn" data-window="all" aria-pressed="false">All history</button>
+    </div>
+
+    <h3 id="prices-pulse" tabindex="-1">Market pulse</h3>
+    <div class="indent-level-2">
+      <p class="prices-pulse__summary" data-prices-pulse-summary>Loading market pulse…</p>
+      <div class="prices-stats" data-prices-stats></div>
+    </div>
+
     <h3 id="prices-timeline" tabindex="-1">Set price timeline</h3>
     <div class="indent-level-2">
-      <p>
+      <p data-prices-timeline-intro>
         Every Pokémon TCG set we track, oldest on the left to newest on the right, showing each set's price change
-        over the last 30 days. Bars above the line went up, bars below went down. Select a bar (or a row in the table
-        below) to see that set's detail, including how many cards were actually priced.
+        over the selected window. Bars above the line went up, bars below went down. Select a bar (or a row in the
+        table below) to see that set's detail, including how many cards were actually priced.
       </p>
 
       <div class="prices-chart" data-prices-chart>
@@ -33,6 +47,7 @@
         <p class="prices-chart__hint">
           The chart above is a visual summary. The table below lists the same sets and numbers directly.
         </p>
+        <div class="prices-chart__legend" data-prices-chart-legend></div>
       </div>
 
       <div class="prices-detail" data-prices-detail hidden>
@@ -51,45 +66,81 @@
       </div>
     </div>
 
+    <h3 id="prices-movers" tabindex="-1">Risers and fallers</h3>
+    <div class="indent-level-2">
+      <p class="prices-movers__rule" data-prices-movers-rule></p>
+      <div class="prices-movers" data-prices-movers>
+        <section class="prices-movers__col" aria-labelledby="prices-risers-heading">
+          <h4 id="prices-risers-heading" tabindex="-1">Risers</h4>
+          <p data-prices-risers-sub></p>
+          <ol class="prices-movers__list" data-prices-risers-list></ol>
+        </section>
+        <section class="prices-movers__col" aria-labelledby="prices-fallers-heading">
+          <h4 id="prices-fallers-heading" tabindex="-1">Fallers</h4>
+          <p data-prices-fallers-sub></p>
+          <ol class="prices-movers__list" data-prices-fallers-list></ol>
+        </section>
+      </div>
+    </div>
+
+    <h3 id="prices-by-era" tabindex="-1">By era</h3>
+    <div class="indent-level-2">
+      <p data-prices-era-note></p>
+      <div class="prices-rollups" data-prices-era-rollups></div>
+      <p class="prices-panel-foot" data-prices-era-foot></p>
+    </div>
+
     <h3 id="prices-cost-to-complete" tabindex="-1">Cost to complete a set</h3>
     <div class="indent-level-2">
-      <p>
+      <p data-prices-table-intro>
         The <strong>Total (floor)</strong> column is the sum of the latest market price for every priced card in a
         set — a floor, not a finished total, whenever "priced" is fewer than "cards". A set is only ever shown as
-        complete when priced equals cards.
+        complete when priced equals cards. Select a column heading to sort.
       </p>
 
       <div class="prices-table-wrap" data-prices-table-wrap>
         <table class="prices-table" data-prices-table>
-          <caption class="sr-only">Cost to complete each Pokémon TCG set, sorted by release date</caption>
+          <caption class="sr-only">Cost to complete each Pokémon TCG set, sortable by column</caption>
           <thead>
             <tr>
-              <th scope="col">Set</th>
-              <th scope="col">Released</th>
-              <th scope="col">Priced / Cards</th>
-              <th scope="col">Total (floor)</th>
-              <th scope="col">30-day change</th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="label">Set</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="releaseDate">Released</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="eraLabel">Era</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="pricedCount">Priced / Cards</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="totalCents">Total (floor)</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="changePct">Change</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="ranked">Ranked</button></th>
             </tr>
           </thead>
           <tbody data-prices-table-body>
             <tr>
-              <td colspan="5">Loading set prices…</td>
+              <td colspan="7">Loading set prices…</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <h3 id="prices-movers" tabindex="-1">Biggest movers</h3>
+    <h3 id="prices-not-in-catalog" tabindex="-1">Not in catalog</h3>
     <div class="indent-level-2">
-      <!-- Movers seam (task #165): not published this pass — the underlying data isn't
-           ready to show publicly yet. When it is, mount a "Biggest movers" list/table here
-           using data/prices/movers-{7d,30d,90d,365d,all}.json via prices.js, following the
-           same dollars-before-percent + coverage-note rules as the sections above. -->
-      <p>
-        We're still validating the data behind short-term "biggest movers" rankings before publishing them here.
-        Check back soon.
-      </p>
+      <p data-prices-unnamed-note></p>
+      <div class="prices-figures" data-prices-unnamed-figures></div>
     </div>
+
+    <h3 id="prices-programs" tabindex="-1">Distribution programs</h3>
+    <div class="indent-level-2">
+      <details class="prices-programs" data-prices-programs>
+        <summary class="prices-programs__summary" data-prices-programs-summary>Loading distribution programs…</summary>
+        <p class="prices-programs__note">
+          Promos, prize packs, jumbos and championship decks span twenty-odd years each, so they have no place on a
+          release-date axis and are kept out of the timeline and the set leaderboard above. They are counted in the
+          market totals, and they are here.
+        </p>
+        <div class="prices-rollups" data-prices-programs-rollups></div>
+        <p class="prices-panel-foot" data-prices-programs-foot></p>
+      </details>
+    </div>
+
+    <p class="prices-foot" data-prices-foot></p>
   </div>
 </section>
