@@ -6,17 +6,19 @@
     "build:site": "node scripts/build-site.js --target=production",
     "build:site:preview": "node scripts/build-site.js --target=preview",
     "generate:version": "node scripts/write-version.js",
+    "generate:prices-index": "node scripts/build-prices-index.js",
     "tcgplayer:clean": "node scripts/tcgplayer-clean-url.js",
     "tcgplayer:redirect": "node scripts/tcgplayer-build-redirect.js",
     "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
     "lint:html": "html-validate index.html content/**/*.html go/**/*.html",
     "lint:css": "stylelint \"**/*.css\" --ignore-path .gitignore",
-    "lint:js": "eslint script.js scripts/**/*.js",
+    "lint:js": "eslint script.js prices.js scripts/**/*.js",
     "postversion": "npm run generate:version",
-    "test": "npm run lint && npm run test:toc && npm run test:navigation && npm run test:axe",
+    "test": "npm run lint && npm run test:toc && npm run test:navigation && npm run test:axe && npm run test:prices",
     "test:toc": "playwright test tests/toc.spec.js",
     "test:navigation": "playwright test tests/navigation.spec.js",
-    "test:axe": "playwright test tests/axe.spec.js"
+    "test:axe": "playwright test tests/axe.spec.js",
+    "test:prices": "playwright test tests/prices.spec.js"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",

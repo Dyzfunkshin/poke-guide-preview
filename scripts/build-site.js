@@ -16,6 +16,7 @@ const sectionsToLoad = [
   "content/condition.html",
   "content/card-care.html",
   "content/worth.html",
+  "content/prices.html",
   "content/tracking.html",
   "content/master-sets.html",
   "content/grading.html",
@@ -283,6 +284,7 @@ async function injectAssetVersioning(outputDir) {
     "styles/nav.css",
     "styles/layout.css",
     "script.js",
+    "prices.js",
     "images/logo-512.png",
     "images/background.jpg",
     "manifest.json"
@@ -315,13 +317,15 @@ async function minifyAssets(outputDir) {
     }
   }
 
-  const jsFile = path.join(outputDir, "script.js");
-  const js = await fs.readFile(jsFile, "utf8");
-  const result = await terserMinify(js, { compress: { passes: 2 }, mangle: true });
-  if (result.error) {
-    console.warn("JS minification error:", result.error);
-  } else if (result.code) {
-    await fs.writeFile(jsFile, result.code, "utf8");
+  const jsFiles = [path.join(outputDir, "script.js"), path.join(outputDir, "prices.js")];
+  for (const jsFile of jsFiles) {
+    const js = await fs.readFile(jsFile, "utf8");
+    const result = await terserMinify(js, { compress: { passes: 2 }, mangle: true });
+    if (result.error) {
+      console.warn(`JS minification error for ${path.basename(jsFile)}:`, result.error);
+    } else if (result.code) {
+      await fs.writeFile(jsFile, result.code, "utf8");
+    }
   }
 
   console.log("Minified CSS and JS assets.");
