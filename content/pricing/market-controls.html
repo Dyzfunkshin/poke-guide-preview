@@ -1,0 +1,15 @@
+<!-- Shared snapshot status and comparison window for the market pages. -->
+  <p class="prices-asof" data-prices-asof>
+    Prices last updated: <strong data-prices-asof-value>loading…</strong>
+  </p>
+  <p class="prices-freshness" data-prices-freshness role="status" hidden></p>
+  <div class="prices-window" data-prices-window role="group" aria-label="Change window">
+    <span class="prices-window__label">Price change:</span>
+    <button type="button" class="prices-window__btn" data-window="7d" aria-pressed="false">7 days</button>
+    <button type="button" class="prices-window__btn" data-window="30d" aria-pressed="true">30 days</button>
+    <button type="button" class="prices-window__btn" data-window="90d" aria-pressed="false">90 days</button>
+    <button type="button" class="prices-window__btn" data-window="365d" aria-pressed="false">365 days</button>
+    <button type="button" class="prices-window__btn" data-window="all" aria-pressed="false">All history</button>
+  </div>
+  <p class="prices-load-status" data-prices-load-status role="status">Loading set prices…</p>
+  <button type="button" class="prices-action" data-prices-retry hidden>Try again</button>

@@ -13,10 +13,9 @@
   <meta name="theme-color" content="#05060b">
   <link rel="canonical" href="https://poke-guide.com/">
   <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  <link rel="manifest" href="manifest.json?v=1.0.0-d437cb3">
-  <link rel="preload" href="images/background.jpg?v=1.0.0-d437cb3" as="image" fetchpriority="high">
-  <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png?v=1.0.0-d437cb3">
-  <link rel="apple-touch-icon" href="images/logo-512.png?v=1.0.0-d437cb3">
+  <link rel="manifest" href="manifest.json?v=1.0.0-9588bb1">
+  <link rel="icon" type="image/png" sizes="512x512" href="images/logo-512.png?v=1.0.0-9588bb1">
+  <link rel="apple-touch-icon" href="images/logo-512.png?v=1.0.0-9588bb1">
   <meta property="og:site_name" content="Poke Guide">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pokemon Card Guide | Poke Guide">
@@ -31,9 +30,9 @@
   <meta name="twitter:description"
     content="A practical Pokemon card guide for identifying cards, pricing them, grading them, storing them, and shipping them safely.">
   <meta name="twitter:image" content="https://poke-guide.com/images/logo-512.png">
-  <link rel="stylesheet" href="styles/base.css?v=1.0.0-d437cb3">
-  <link rel="stylesheet" href="styles/nav.css?v=1.0.0-d437cb3">
-  <link rel="stylesheet" href="styles/layout.css?v=1.0.0-d437cb3">
+  <link rel="stylesheet" href="styles/base.css?v=1.0.0-9588bb1">
+  <link rel="stylesheet" href="styles/nav.css?v=1.0.0-9588bb1">
+  <link rel="stylesheet" href="styles/layout.css?v=1.0.0-9588bb1">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -199,13 +198,15 @@
 <body>
   <!-- Dedicated fixed background layer so parallax does not depend on browser-specific body background behavior. -->
   <div class="page-background" aria-hidden="true">
-    <img src="images/background.jpg?v=1.0.0-d437cb3" alt="" class="page-background-image" width="1024" height="1536"
+    <img src="images/background.jpg?v=1.0.0-9588bb1" alt="" class="page-background-image" width="1024" height="1536"
       fetchpriority="high" decoding="async">
   </div>
   <a class="skip-link" href="#content" data-link-key="internal_content">Skip to main content</a>
   <header class="site-banner">
+    <a class="site-banner__brand" href="./" aria-label="Poke Guide home">Poke<span>Guide</span></a>
     <nav class="page-nav" aria-label="Site">
       <a class="page-nav__link" href="./" aria-current="page">Guide</a>
+      <a class="page-nav__link" href="catalog/">Catalog Explorer</a>
       <a class="page-nav__link" href="pricing/">Pricing Explorer</a>
     </nav>
   </header>
@@ -213,19 +214,25 @@
     <!-- Sidebar navigation -->
     <aside id="toc" class="sidebar" aria-label="Table of contents">
       <div class="site-header">
-        <img src="images/logo-512.png?v=1.0.0-d437cb3" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
+        <img src="images/logo-512.png?v=1.0.0-9588bb1" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
           fetchpriority="high" decoding="async">
         <div class="site-title">POKE GUIDE</div>
       </div>
-
-      <nav class="nav" aria-label="Page sections">
+      <button class="sidebar__toggle" type="button" aria-expanded="false" aria-controls="page-sections">
+        On this page <span aria-hidden="true">⌄</span>
+      </button>
+      <nav id="page-sections" class="nav" aria-label="Page sections">
         <!-- ToC is filled by JS -->
       </nav>
     </aside>
 
     <!-- Main content (the production build can render sections here for crawlers) -->
     <main id="content" class="content" aria-live="polite">
-      <h1 class="sr-only">Pokemon Card Guide</h1>
+      <!-- The introduction scrolls away; only the compact navigation stays on screen. -->
+      <div class="guide-intro">
+        <h1>Your Pokémon collecting guide.</h1>
+        <p>Identify your cards, understand their value, and care for your collection.</p>
+      </div>
       <section id="welcome" aria-labelledby="welcome-heading">
   <h2 id="welcome-heading" tabindex="-1">Welcome</h2>
 
@@ -249,10 +256,10 @@
   </p>
 
   <ul>
-    <li>Identify what card you’re looking at (set, number, rarity, etc.).</li>
-    <li>Use price tools confidently to estimate value.</li>
-    <li>Decide when grading makes sense and what companies look for.</li>
-    <li>Track your collection so you actually know what you have.</li>
+    <li><a href="#identify-heading">Identify what card you’re looking at</a> (set, number, rarity, etc.).</li>
+    <li>Use the <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a> to compare set totals and price trends.</li>
+    <li><a href="#grading-should">Decide when grading makes sense</a> and what companies look for.</li>
+    <li><a href="#tracking-heading">Track your collection</a> so you actually know what you have.</li>
   </ul>
 
   <p>
@@ -293,6 +300,10 @@
       is an excellent reference page when searching by symbol or abbreviation.
     </li>
   </ul>
+  <p>
+    Once you know the set, find its estimated total and price trends in the
+    <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a>.
+  </p>
 </div>
 
     <h3 id="identify-rarity" tabindex="-1">Rarity</h3>
@@ -435,7 +446,11 @@
     <li><strong>Other defects</strong> - Water damage, tearing, peeling, stains, or writing will also reduce condition.</li>
   </ul>
 </div>
-
+    <p>
+      Match condition when <a href="" data-link-key="internal_prices_lookup">comparing individual card values</a>.
+      For broader market context, use the <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a>
+      to compare set totals and trends.
+    </p>
   </div>
 </section>
 
@@ -496,6 +511,11 @@
       very popular and trusted brands.
     </li>
   </ul>
+  <!-- Reuse the affiliate registry so the same supply recommendation has one destination. -->
+  <p>
+    <a href="" data-link-key="external_amazon_sleeves" target="_blank" rel="noopener noreferrer sponsored">Browse penny sleeves on Amazon</a>
+    (affiliate link, at no extra cost to you).
+  </p>
 </div>
 
     <h3 id="card-care-toploaders" tabindex="-1">Top Loaders</h3>
@@ -506,7 +526,7 @@
   </p>
   <p>
     The most important thing about top loaders is that you <strong>NEVER put your card in one WITHOUT A PENNY
-      SLEEVE.</strong> Penny sleeve first, then insert the card, with it in the penny sleeve, inside the top loader.
+      SLEEVE.</strong> <a href="#card-care-sleeves">Penny sleeve</a> first, then insert the card, with it in the penny sleeve, inside the top loader.
   </p>
   <h4 id="card-care-toploaders-material" tabindex="-1">Material</h4>
   <ul>
@@ -543,17 +563,25 @@
       very popular and trusted brands.
     </li>
   </ul>
+  <p>
+    <a href="" data-link-key="external_amazon_top_loaders" target="_blank" rel="noopener noreferrer sponsored">Browse top loaders on Amazon</a>
+    (affiliate link, at no extra cost to you).
+  </p>
 </div>
 
     <h3 id="card-care-team-bags" tabindex="-1">Team Bags</h3>
     <div class="indent-level-2">
   <p>
     Team bags are resealable outer sleeves that fit over a toploader or card saver,
-    adding a final barrier against dust, moisture, and scuffs during storage or shipping.
+    adding a final barrier against dust, moisture, and scuffs during storage or <a href="#shipping-raw-cards">shipping</a>.
   </p>
   <p>
     They are inexpensive, easy to remove, and great for keeping a protected card from
     sliding out of its holder.
+  </p>
+  <p>
+    <a href="" data-link-key="external_amazon_team_bags" target="_blank" rel="noopener noreferrer sponsored">Browse team bags on Amazon</a>
+    (affiliate link, at no extra cost to you).
   </p>
 </div>
 
@@ -698,6 +726,10 @@
     <li>Zip binders keep dust out; don’t overfill pages so pockets stay flat.</li>
     <li>Pick a binder with pages that are sewn or welded into the spine so no metal rings can dent the cards.</li>
   </ul>
+  <p>
+    <a href="" data-link-key="external_amazon_binder" target="_blank" rel="noopener noreferrer sponsored">Browse a binder on Amazon</a>
+    (affiliate link, at no extra cost to you).
+  </p>
 </div>
 
     <h3 id="card-care-environment" tabindex="-1">Environment</h3>
@@ -726,11 +758,18 @@
 <section id="worth" aria-labelledby="worth-heading">
   <h2 id="worth-heading" tabindex="-1">What's my card worth?</h2>
   <p>
-    Card values depend on <strong>which card</strong> it is, <strong>condition</strong>, and <strong>market demand</strong>.
+    Card values depend on <a href="#identify-heading">which card</a> it is,
+    <a href="#condition-heading">condition</a>, and <strong>market demand</strong>.
   </p>
 
   <h3 id="worth-lookup" tabindex="-1">Where to look up value</h3>
   <div class="indent-level-2">
+  <!-- Send card searches through the shared marketplace tools before readers choose a seller. -->
+  <p>
+    Use the <a href="" data-link-key="internal_prices_lookup">Catalog Explorer marketplace lookups</a>
+    to search TCGPlayer, eBay, and Misprint for your card. Match the set, number, variant, and
+    <a href="#condition-heading">condition</a> before comparing prices.
+  </p>
   <h4 id="worth-lookup-tcgplayer" tabindex="-1">TCGPlayer</h4>
   <div class="indent-level-3">
     <p>
@@ -742,11 +781,21 @@
     </p>
     <div class="resource-callout">
       <p class="resource-callout__eyebrow">Ready to compare listings?</p>
+      <p>
+        Misprint is another great place to buy cards alongside TCGPlayer. eBay is also worth checking for a specific
+        copy or graded card, but asking prices can carry a premium. Compare condition, recent sold prices, and
+        shipping costs before buying.
+      </p>
+      <!-- Named links share the registry so invite URLs stay out of the visible copy. -->
       <ul class="resource-callout__list">
         <li><a href="" data-link-key="external_tcgplayer_partner" target="_blank"
-            rel="noopener noreferrer sponsored">Check the card on TCGPlayer</a></li>
+            rel="noopener noreferrer sponsored">Browse cards on TCGPlayer</a></li>
+        <li><a href="" data-link-key="external_misprint" target="_blank"
+            rel="noopener noreferrer sponsored">Shop cards on Misprint</a></li>
+        <li><a href="" data-link-key="external_ebay" target="_blank"
+            rel="noopener noreferrer">Compare listings on eBay</a></li>
       </ul>
-      <p class="resource-callout__note">Affiliate link, no extra cost to you.</p>
+      <p class="resource-callout__note">TCGPlayer and Misprint links are affiliate or referral links, at no extra cost to you.</p>
     </div>
   </div>
 
@@ -761,22 +810,24 @@
   <h4 id="worth-lookup-pricecharting" tabindex="-1">PriceCharting</h4>
   <div class="indent-level-3">
     <p>
-      PriceCharting tracks average sale prices over time. It's great for a quick ballpark number, but still cross-check with recent sales on eBay or TCGPlayer for accuracy.
+      PriceCharting tracks average sale prices over time. It's great for a quick ballpark number, but still cross-check with recent sales on
+      <a href="" data-link-key="internal_worth_lookup_ebay">eBay</a> or
+      <a href="" data-link-key="internal_worth_lookup_tcgplayer">TCGPlayer</a> for accuracy.
     </p>
   </div>
 
   <h4 id="worth-lookup-collectr" tabindex="-1">Collectr</h4>
   <div class="indent-level-3">
     <p>
-      Collectr is a collection tracking app that we'll cover later, but is another great source for looking up quick ballpark values, however much like PriceCharting you should still check recent sales on eBay and/or TCGPlayer before selling or buying.
+      <a href="" data-link-key="internal_tracking_apps_collectr">Collectr</a> is a collection tracking app that we'll cover later, but is another great source for looking up quick ballpark values, however much like PriceCharting you should still check recent sales on eBay and/or TCGPlayer before selling or buying.
     </p>
   </div>
 </div>
 
   <p>
     Want set-level trends instead of a single card? See
-    <a href="" data-link-key="internal_prices_heading">Set prices</a> for the full set price timeline and
-    cost-to-complete numbers.
+    <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a> for estimated set totals,
+    and daily price history. These totals cover priced cards, not the cost of completing your own collection.
   </p>
 </section>
 
@@ -973,6 +1024,8 @@
       <a href="" data-link-key="internal_worth_lookup_ebay">eBay</a> and/or
       <a href="" data-link-key="internal_worth_lookup_tcgplayer">TCGPlayer</a>
       should be used for the most accurate pricing information.
+      Use the <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a> to compare set totals
+      and daily price trends alongside your collection tracker.
     </p>
   </div>
 </section>
@@ -998,6 +1051,12 @@
         sets and releases. A popular goal for collectors who focus on a favorite Pokémon rather than a specific set.
       </li>
     </ul>
+
+    <p>
+      Planning a budget? Compare estimated set totals and daily trends in the
+      <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a>, then check listings for the cards
+      you still need. A set total is not a quote for your missing cards.
+    </p>
 
     <h3 id="master-sets-reference" tabindex="-1">
       <a href="" data-link-key="external_pokemasterlist" target="_blank" rel="noopener noreferrer">
@@ -1057,6 +1116,11 @@
     Not every card is worth grading. Think about both <strong>value</strong> and
     <strong>personal attachment</strong>.
   </p>
+  <p>
+    Start with <a href="" data-link-key="internal_prices_lookup">recent sales of matching raw and graded cards</a>,
+    then weigh the difference against grading fees and shipping. The
+    <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a> adds set-level market context.
+  </p>
 
   <h4 id="grading-should-companies-look-for" tabindex="-1">What companies look for</h4>
   <ul>
@@ -1068,7 +1132,8 @@
 
   <h4 id="grading-should-assess-home" tabindex="-1">How to assess at home</h4>
   <ul>
-    <li>Use strong lighting and tilt the card to see scratches and print lines.</li>
+    <li>Use strong lighting and tilt the card to see scratches and print lines. Follow the
+      <a href="#condition-quick-check">condition self-check</a> for a closer inspection.</li>
     <li>Check the back for whitening and edge wear. You can use a black light to really make whitening stand out.</li>
     <li>Compare your card to photos of graded copies online to get a rough idea of where it stands.</li>
   </ul>
@@ -1352,6 +1417,11 @@
       links are also surfaced in the related sections above so you do not have to hunt for them. If you use these
       links, thank you. It helps support the project at no extra cost to you.
     </p>
+    <p>
+      Before buying cards, compare set trends in the
+      <a href="" data-link-key="internal_prices_heading">Pricing Explorer</a> and look up cards in the
+      <a href="" data-link-key="internal_prices_lookup">Catalog Explorer</a>.
+    </p>
     <ul>
       <li>
         <strong><a href="" data-link-key="external_tcgplayer_partner" target="_blank"
@@ -1367,30 +1437,29 @@
         </ul>
       </li>
       <li>
-        <strong><a href="" data-link-key="external_ebay" target="_blank" rel="noopener noreferrer">eBay</a></strong>
+        <strong><a href="" data-link-key="external_misprint" target="_blank"
+            rel="noopener noreferrer sponsored">Misprint</a></strong>
         <ul>
           <li>
-            eBay is always a good option as well. It's well-known, has excellent support, and every listing comes with a
-            photo so you can see what condition the card is in, or reach out to the seller to request more photos if
-            it's unclear. It has 30 day buyer protection, and for high value cards even an Authenticity Guarantee where
-            the card is first shipped to a third party company to verify the legitimacy of it before it is sent to you.
+            Misprint is a great place to buy Pokemon cards alongside TCGPlayer. It has singles, graded cards, and
+            sealed products, with a bid-and-ask marketplace that lets you buy an available listing or place a bid
+            at the price you're willing to pay. A seller can then accept your bid, making it a useful option when
+            you're shopping with a budget in mind.
+          </li>
+          <li>
+            Use <a href="" data-link-key="external_misprint" target="_blank"
+              rel="noopener noreferrer sponsored">my Misprint invite link</a> to get started.
           </li>
         </ul>
       </li>
       <li>
-        <strong><a href="" data-link-key="external_misprint" target="_blank"
-            rel="noopener noreferrer">Misprint</a></strong>
+        <strong><a href="" data-link-key="external_ebay" target="_blank" rel="noopener noreferrer">eBay</a></strong>
         <ul>
           <li>
-            Misprint is a relatively new marketplace option for buying and selling cards. You can set a price that you
-            want to buy a card at, and a seller can choose to fulfill that order. For selling, you can set a price you
-            want someone to buy your card at and anyone can come along and buy it, or you can fulfill an existing
-            purchase request.
-          </li>
-          <li>
-            If you create a free account with <a href="" data-link-key="external_misprint" target="_blank"
-              rel="noopener noreferrer">this</a> link, you'll receive
-            $5 store credit.
+            eBay is worth checking for graded, vintage, and harder-to-find cards, but it can be a more premium-priced
+            source. Asking prices can run higher than TCGPlayer or Misprint, so compare recent sold listings,
+            condition, and shipping costs before paying a premium. Look for photos of the actual card and ask the
+            seller for close-ups if you need a better look at its condition.
           </li>
         </ul>
       </li>
@@ -1491,9 +1560,9 @@
   </footer>
 
   <!-- Build output can inline these JSON blobs so the page avoids extra startup fetches. -->
-  <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_prices_heading":"pricing/#prices-heading","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_holodex":"https://www.getholodex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/?ref=97A81","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/","external_pokemasterlist":"https://pokemasterlist.vercel.app"}</script>
-  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"d437cb3","generatedAt":"2026-10-06T06:02:13.920Z"}</script>
-  <script src="script.js?v=1.0.0-d437cb3"></script>
+  <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_prices_heading":"pricing/","internal_prices_lookup":"catalog/","internal_tracking_apps_card_codex":"#tracking-apps-card-codex","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_holodex":"https://www.getholodex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_ebay_search":"https://www.ebay.com/sch/i.html","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/why-misprint?ref=dyzzyscards","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/","external_pokemasterlist":"https://pokemasterlist.vercel.app"}</script>
+  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"9588bb1","generatedAt":"2026-10-06T07:00:56.804Z"}</script>
+  <script src="script.js?v=1.0.0-9588bb1"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"

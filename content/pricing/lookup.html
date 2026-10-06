@@ -1,0 +1,114 @@
+<section id="prices" class="prices-page" data-prices-page="lookup" aria-labelledby="prices-lookup">
+  <h2 id="prices-lookup" tabindex="-1">Marketplace lookups</h2>
+  <p class="prices-intro">Search TCGPlayer, eBay, and Misprint from one place.</p>
+  <!-- Marketplace searches are available without a market snapshot. -->
+  <div class="prices-lookup">
+    <p>Search by name, set, number, card type, or rarity. Try Pikachu, Trainer, ACE SPEC, 124/172, or Special Illustration Rare. Choose a suggestion for one card, or press Search to browse all matches.</p>
+    <form class="prices-lookup__form" data-prices-lookup-form>
+      <div class="prices-lookup__search-row">
+        <label class="prices-filters__field">
+          <span>Card or set to look up</span>
+          <input type="search" data-prices-lookup-query placeholder="e.g. Pikachu or Special Illustration Rare" maxlength="200" autocomplete="off" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="prices-lookup-results" aria-describedby="prices-lookup-status">
+        </label>
+        <button type="submit" class="prices-action">Search</button>
+      </div>
+      <!-- Keep optional limits in the search form so numeric values receive native validation. -->
+      <div class="prices-lookup__filters">
+        <label class="prices-filters__field">
+          <span>Language</span>
+          <select data-prices-lookup-language>
+            <option value="">All languages</option>
+            <option value="en">English</option>
+            <option value="ja">Japanese</option>
+          </select>
+        </label>
+        <label class="prices-filters__field">
+          <span>Printing</span>
+          <select data-prices-lookup-printing>
+            <option value="">All printings</option>
+            <option value="Normal">Normal</option>
+            <option value="Holofoil">Holofoil</option>
+            <option value="Reverse Holofoil">Reverse Holofoil</option>
+            <option value="1st Edition">1st Edition</option>
+            <option value="1st Edition Holofoil">1st Edition Holofoil</option>
+            <option value="Unlimited">Unlimited</option>
+            <option value="Unlimited Holofoil">Unlimited Holofoil</option>
+            <option value="Metal">Metal</option>
+          </select>
+        </label>
+        <label class="prices-filters__field">
+          <span>Minimum price (USD)</span>
+          <input type="number" data-prices-lookup-min-price min="0" step="0.01" inputmode="decimal" placeholder="No minimum" aria-describedby="prices-lookup-filter-status">
+        </label>
+        <label class="prices-filters__field">
+          <span>Maximum price (USD)</span>
+          <input type="number" data-prices-lookup-max-price min="0" step="0.01" inputmode="decimal" placeholder="No maximum" aria-describedby="prices-lookup-filter-status">
+        </label>
+        <button type="button" class="prices-action" data-prices-lookup-clear-filters>Clear filters</button>
+      </div>
+      <p id="prices-lookup-filter-status" class="prices-lookup__status" data-prices-lookup-filter-status role="status">Use one or both price limits. Price filters use the available market-price snapshot.</p>
+    </form>
+    <p id="prices-lookup-status" class="prices-lookup__status" data-prices-lookup-status role="status">Type at least 2 characters to find a card.</p>
+    <button type="button" class="prices-action" data-prices-lookup-retry hidden>Retry card search</button>
+    <!-- [html-validate-disable-next prefer-native-element -- A listbox supports the editable card-search combobox.] -->
+    <ul id="prices-lookup-results" class="prices-lookup__results" data-prices-lookup-results role="listbox" aria-label="Matching cards" hidden></ul>
+
+    <!-- Keep the selected printing and its marketplace links together. -->
+    <section class="prices-card" data-prices-card aria-labelledby="prices-card-heading" hidden>
+      <div class="prices-card__artwork">
+        <div class="prices-card__image" data-prices-card-image></div>
+        <p class="prices-lookup__status" data-prices-card-image-status hidden>Card image unavailable.</p>
+      </div>
+      <div class="prices-card__body">
+        <h3 id="prices-card-heading" data-prices-card-name tabindex="-1">Selected card</h3>
+        <!-- Keep marketplace actions directly beneath the details, independent of table height. -->
+        <div class="prices-card__information">
+          <dl class="prices-card__details" data-prices-card-details></dl>
+          <div class="prices-marketplace-links" data-prices-card-links></div>
+        </div>
+        <!-- Exact condition quotes stay separate from condition-blind market estimates. -->
+        <section class="prices-card__prices" data-prices-card-prices tabindex="0" aria-label="Card prices by condition and variant"></section>
+      </div>
+    </section>
+
+    <!-- Submitted searches stay available while a chosen card's details open above. -->
+    <section class="prices-browse" data-prices-browse aria-labelledby="prices-browse-heading" hidden>
+      <h3 id="prices-browse-heading" data-prices-browse-title tabindex="-1">Search results</h3>
+      <p class="prices-lookup__status" data-prices-browse-status role="status"></p>
+      <p class="prices-lookup__note">Type and rarity searches use the metadata available in the catalog.</p>
+      <div class="prices-browse__sort">
+        <label class="prices-filters__field">
+          Sort by
+          <select data-prices-browse-sort aria-describedby="prices-browse-sort-note">
+            <option value="relevance">Relevance</option>
+            <option value="name">Name</option>
+            <option value="price">Price</option>
+            <option value="year">Set release year</option>
+            <option value="set">Set</option>
+            <option value="number">Card number</option>
+          </select>
+        </label>
+        <label class="prices-filters__field">
+          Direction
+          <select data-prices-browse-direction disabled>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </label>
+      </div>
+      <p id="prices-browse-sort-note" class="prices-lookup__note" data-prices-browse-sort-note>Results are ranked by relevance.</p>
+      <ul class="prices-browse__grid" data-prices-browse-grid></ul>
+      <nav class="prices-browse__pagination" aria-label="Card search results">
+        <button type="button" class="prices-action" data-prices-browse-prev disabled>Previous</button>
+        <span data-prices-browse-page></span>
+        <button type="button" class="prices-action" data-prices-browse-next disabled>Next</button>
+      </nav>
+    </section>
+
+    <p class="prices-lookup__note">
+      Match the <a href="../#identify-heading">exact card</a> and <a href="../#condition-heading">condition</a>.
+      <a href="../#worth-lookup-ebay">eBay sold listings</a> help compare completed sales; asking prices can be higher.
+      TCGPlayer and Misprint links support this guide through affiliate or referral programs at no extra cost to you.
+    </p>
+  </div>
+</section>

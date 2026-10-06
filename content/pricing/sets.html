@@ -1,0 +1,89 @@
+<section id="prices" class="prices-page" data-prices-page="sets" aria-labelledby="prices-cost-to-complete">
+  <h2 id="prices-cost-to-complete" tabindex="-1">Estimated set totals</h2>
+  <p class="prices-intro">Find a set, compare its estimated value, and explore its daily price history.</p>
+  <!-- The same filters are used by set totals and the price-change chart. -->
+  <div data-include="../../content/pricing/set-filters.html"></div>
+  <div data-include="../../content/pricing/market-controls.html"></div>
+
+  <div data-prices-dashboard hidden>
+    <p data-prices-table-intro>
+      The <strong>priced-card total</strong> adds up the latest market prices available for each set.
+      Missing prices make the estimate incomplete. Select a set for details and daily price history, or a column heading to sort.
+    </p>
+    <p class="prices-results-count" data-prices-results-count role="status"></p>
+    <div class="prices-explorer">
+      <section class="prices-table-wrap" data-prices-table-wrap aria-label="Set results" tabindex="0">
+        <table class="prices-table" data-prices-table>
+          <caption class="sr-only">Estimated set totals, sortable by column</caption>
+          <thead>
+            <tr>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="label">Set</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="totalCents">Priced-card total</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="changePct">Change</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="pricedCount">Priced / Cards</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="releaseDate">Released</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="eraLabel">Era</button></th>
+              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="ranked">Ranked</button></th>
+            </tr>
+          </thead>
+          <tbody data-prices-table-body>
+            <tr>
+              <td colspan="7">Loading set prices…</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <!-- The selection follows its results in reading order, including on mobile. -->
+      <div class="prices-explorer__selection">
+        <p class="prices-detail-empty" data-prices-detail-empty>
+          Select a set to see its estimated total, price coverage, and daily price history.
+        </p>
+        <div class="prices-detail" data-prices-detail hidden>
+          <p class="prices-detail__title" data-prices-detail-title tabindex="-1" aria-live="polite">Set detail</p>
+          <dl class="prices-detail__stats" data-prices-detail-stats></dl>
+          <p class="prices-detail__coverage" data-prices-detail-coverage></p>
+          <div class="prices-detail__link prices-marketplace-links" role="group" aria-label="Look up this set"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keep the selected set's history wide enough to compare daily prices. -->
+    <section class="prices-history" data-prices-history aria-labelledby="prices-history-heading" hidden>
+      <!-- Selected-set labels stay out of the page-wide sidebar. -->
+      <p class="prices-history__title" id="prices-history-heading">Daily set prices</p>
+      <p class="prices-history__name" data-prices-history-name></p>
+      <div class="prices-history__controls">
+        <div class="prices-history__ranges" role="group" aria-label="History date range">
+          <button type="button" class="prices-action" data-history-range="24h" aria-pressed="false">24h</button>
+          <button type="button" class="prices-action" data-history-range="3d" aria-pressed="false">3 days</button>
+          <button type="button" class="prices-action" data-history-range="1w" aria-pressed="false">1 week</button>
+          <button type="button" class="prices-action" data-history-range="2w" aria-pressed="false">2 weeks</button>
+          <button type="button" class="prices-action" data-history-range="1m" aria-pressed="false">1 month</button>
+          <button type="button" class="prices-action" data-history-range="3m" aria-pressed="true">3 months</button>
+          <button type="button" class="prices-action" data-history-range="6m" aria-pressed="false">6 months</button>
+          <button type="button" class="prices-action" data-history-range="1y" aria-pressed="false">1 year</button>
+          <button type="button" class="prices-action" data-history-range="max" aria-pressed="false">Max</button>
+        </div>
+        <div class="prices-history__start">
+          <label for="prices-history-start">Starting date</label>
+          <input type="date" id="prices-history-start" data-history-start>
+        </div>
+        <span class="prices-history__through">Through today (UTC)</span>
+      </div>
+      <p class="prices-history__status" data-history-status role="status"></p>
+      <button type="button" class="prices-action" data-history-retry hidden>Retry history</button>
+      <div
+        class="prices-history__chart"
+        data-history-chart
+        tabindex="0"
+        role="group"
+        aria-label="Daily set prices. Use Left and Right arrows to inspect dates, or Home and End."
+        hidden
+      ></div>
+      <p class="prices-history__readout" data-history-readout aria-live="polite"></p>
+      <p class="prices-history__caption">
+        Daily priced-card totals in USD. Missing days are left blank; changing card coverage can affect the total.
+      </p>
+    </section>
+  </div>
+</section>

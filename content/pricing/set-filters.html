@@ -1,0 +1,18 @@
+  <!-- Keep discovery controls available while the dashboard loads or retries. -->
+  <div class="prices-filters" role="group" aria-label="Find sets">
+    <label class="prices-filters__field prices-filters__field--search">
+      <span>Search sets</span>
+      <input type="search" data-prices-search placeholder="Set name, e.g. Evolving Skies" autocomplete="off">
+    </label>
+    <label class="prices-filters__field">
+      <span>Era</span>
+      <select data-prices-era>
+        <option value="">All eras</option>
+      </select>
+    </label>
+    <label class="prices-filters__coverage">
+      <input type="checkbox" data-prices-coverage>
+      <span>80%+ priced</span>
+    </label>
+    <button type="button" class="prices-action" data-prices-reset>Reset</button>
+  </div>

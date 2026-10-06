@@ -1,0 +1,24 @@
+<section id="prices" class="prices-page" data-prices-page="changes" aria-labelledby="prices-timeline">
+  <h2 id="prices-timeline" tabindex="-1">Price change by set</h2>
+  <p class="prices-intro">Compare how Pokemon TCG sets have changed in value over time.</p>
+  <!-- The same filters are used by set totals and the price-change chart. -->
+  <div data-include="../../content/pricing/set-filters.html"></div>
+  <div data-include="../../content/pricing/market-controls.html"></div>
+
+  <div data-prices-dashboard hidden>
+    <p data-prices-timeline-intro>
+      Compare sets from oldest to newest over the selected window. Search, era, and price-coverage filters
+      apply to the chart. Bars above the line rose; bars below fell. Hover over or focus a bar for its values,
+      or select it to open the set details.
+    </p>
+    <div class="prices-chart" data-prices-chart>
+      <!-- Bar buttons sit beside the SVG so keyboard access is not hidden by an image role. -->
+      <div class="prices-chart__figure" data-prices-chart-figure>
+        <p class="prices-chart__status" data-prices-chart-status>Loading price changes…</p>
+      </div>
+      <p class="prices-chart__tooltip" data-prices-chart-tooltip hidden></p>
+      <p class="prices-chart__hint"><a href="../sets/">Estimated set totals</a> shows the same values in a sortable list.</p>
+      <div class="prices-chart__legend" data-prices-chart-legend></div>
+    </div>
+  </div>
+</section>
