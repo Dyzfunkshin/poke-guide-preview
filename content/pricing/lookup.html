@@ -39,25 +39,7 @@
     <p id="prices-lookup-status" class="prices-lookup__status" data-prices-lookup-status role="status">Loading cards…</p>
     <button type="button" class="prices-action" data-prices-lookup-retry hidden>Retry card search</button>
 
-    <!-- Keep the selected printing and its marketplace links together. -->
-    <section class="prices-card" data-prices-card aria-labelledby="prices-card-heading" hidden>
-      <div class="prices-card__artwork">
-        <div class="prices-card__image" data-prices-card-image></div>
-        <p class="prices-lookup__status" data-prices-card-image-status hidden>Card image unavailable.</p>
-      </div>
-      <div class="prices-card__body">
-        <h3 id="prices-card-heading" data-prices-card-name tabindex="-1">Selected card</h3>
-        <!-- Keep marketplace actions directly beneath the details, independent of table height. -->
-        <div class="prices-card__information">
-          <dl class="prices-card__details" data-prices-card-details></dl>
-          <div class="prices-marketplace-links" data-prices-card-links></div>
-        </div>
-        <!-- Exact condition quotes stay separate from condition-blind market estimates. -->
-        <section class="prices-card__prices" data-prices-card-prices tabindex="0" aria-label="Card prices by condition and variant"></section>
-      </div>
-    </section>
-
-    <!-- Live results stay available while a chosen card's details open above. -->
+    <!-- Details open above the chosen card's row while all thumbnails keep their places. -->
     <section class="prices-browse" data-prices-browse aria-labelledby="prices-browse-heading" hidden>
       <h3 id="prices-browse-heading" data-prices-browse-title tabindex="-1">Search results</h3>
       <p class="prices-lookup__status" data-prices-browse-status role="status"></p>
@@ -83,7 +65,27 @@
       </div>
       <p id="prices-browse-sort-note" class="prices-lookup__note" data-prices-browse-sort-note>Results are ranked by relevance.</p>
       <section class="prices-browse__viewport" data-prices-browse-viewport aria-label="Card search results" tabindex="0">
-        <ul class="prices-browse__grid" data-prices-browse-grid></ul>
+        <ul class="prices-browse__grid" data-prices-browse-grid>
+          <li class="prices-browse__details" data-prices-browse-details hidden>
+            <section class="prices-card" data-prices-card aria-labelledby="prices-card-heading" hidden>
+              <button type="button" class="prices-card__close" data-prices-card-close aria-label="Close card details">&times;</button>
+              <div class="prices-card__artwork">
+                <div class="prices-card__image" data-prices-card-image></div>
+                <p class="prices-lookup__status" data-prices-card-image-status hidden>Card image unavailable.</p>
+              </div>
+              <div class="prices-card__body">
+                <h3 id="prices-card-heading" data-prices-card-name tabindex="-1">Selected card</h3>
+                <!-- Keep marketplace actions beneath metadata, independent of table height. -->
+                <div class="prices-card__information">
+                  <dl class="prices-card__details" data-prices-card-details></dl>
+                  <div class="prices-marketplace-links" data-prices-card-links></div>
+                </div>
+                <!-- Exact condition quotes stay separate from condition-blind market estimates. -->
+                <section class="prices-card__prices" data-prices-card-prices tabindex="0" aria-label="Card prices by condition and variant"></section>
+              </div>
+            </section>
+          </li>
+        </ul>
       </section>
       <p class="prices-lookup__status prices-browse__progress" data-prices-browse-progress role="status"></p>
       <button type="button" class="prices-action" data-prices-browse-retry hidden>Retry loading more</button>
