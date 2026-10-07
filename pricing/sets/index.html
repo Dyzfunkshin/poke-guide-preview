@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Pokemon Card Set Totals and History | Pricing Explorer | Poke Guide</title>
+  <title>Pricing Explorer temporarily unavailable | Poke Guide</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
     content="Compare estimated Pokemon TCG set totals and price coverage, then explore daily set price history with custom date ranges.">
@@ -11,9 +11,9 @@
   <meta name="theme-color" content="#05060b">
   <link rel="canonical" href="https://poke-guide.com/pricing/sets/">
   <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  <link rel="manifest" href="../../manifest.json?v=1.0.0-9588bb1">
-  <link rel="icon" type="image/png" sizes="512x512" href="../../images/logo-512.png?v=1.0.0-9588bb1">
-  <link rel="apple-touch-icon" href="../../images/logo-512.png?v=1.0.0-9588bb1">
+  <link rel="manifest" href="../../manifest.json?v=1.0.0-9d7cb99">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../images/logo-512.png?v=1.0.0-9d7cb99">
+  <link rel="apple-touch-icon" href="../../images/logo-512.png?v=1.0.0-9d7cb99">
   <meta property="og:site_name" content="Poke Guide">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pokemon Card Set Totals and History | Pricing Explorer | Poke Guide">
@@ -28,9 +28,9 @@
   <meta name="twitter:description"
     content="Compare estimated Pokemon TCG set totals and price coverage, then explore daily set price history with custom date ranges.">
   <meta name="twitter:image" content="https://poke-guide.com/images/logo-512.png">
-  <link rel="stylesheet" href="../../styles/base.css?v=1.0.0-9588bb1">
-  <link rel="stylesheet" href="../../styles/nav.css?v=1.0.0-9588bb1">
-  <link rel="stylesheet" href="../../styles/layout.css?v=1.0.0-9588bb1">
+  <link rel="stylesheet" href="../../styles/base.css?v=1.0.0-9d7cb99">
+  <link rel="stylesheet" href="../../styles/nav.css?v=1.0.0-9d7cb99">
+  <link rel="stylesheet" href="../../styles/layout.css?v=1.0.0-9d7cb99">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,7 +54,7 @@
 <body>
   <!-- Dedicated fixed background layer so parallax does not depend on browser-specific body background behavior. -->
   <div class="page-background" aria-hidden="true">
-    <img src="../../images/background.jpg?v=1.0.0-9588bb1" alt="" class="page-background-image" width="1024" height="1536"
+    <img src="../../images/background.jpg?v=1.0.0-9d7cb99" alt="" class="page-background-image" width="1024" height="1536"
       fetchpriority="high" decoding="async">
   </div>
   <a class="skip-link" href="#content" data-link-key="internal_content">Skip to main content</a>
@@ -63,154 +63,27 @@
     <nav class="page-nav" aria-label="Site">
       <a class="page-nav__link" href="../../">Guide</a>
       <a class="page-nav__link" href="../../catalog/">Catalog Explorer</a>
-      <a class="page-nav__link" href="../../pricing/" aria-current="page">Pricing Explorer</a>
+      
     </nav>
   </header>
   <div class="layout">
     <!-- Sidebar navigation -->
     <aside id="toc" class="sidebar" aria-label="Pricing Explorer">
       <div class="site-header">
-        <img src="../../images/logo-512.png?v=1.0.0-9588bb1" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
+        <img src="../../images/logo-512.png?v=1.0.0-9d7cb99" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
           fetchpriority="high" decoding="async">
         <div class="site-title">POKE GUIDE</div>
       </div>
-      <button class="sidebar__toggle" type="button" aria-expanded="false" aria-controls="page-sections">
-        Pricing pages <span aria-hidden="true">⌄</span>
-      </button>
-      <nav id="page-sections" class="nav" aria-label="Pricing pages">
-        <!-- These links navigate between pricing pages; guide navigation stays within the guide. -->
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/">Market pulse</a></div>
-        <div class="nav-group nav-group--active"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/sets/" aria-current="page">Estimated set totals</a></div>
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/movers/">Risers and fallers</a></div>
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/changes/">Price change by set</a></div>
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/eras/">By era</a></div>
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/coverage/">Data coverage</a></div>
-        <div class="nav-group"><a class="nav-link nav-link--level1 pricing-nav__link" href="../../pricing/programs/">Distribution programs</a></div>
-      </nav>
+      
+      
     </aside>
 
     <!-- Main content (the production build can render sections here for crawlers) -->
     <main id="content" class="content" aria-live="polite">
-      <h1 class="sr-only">Estimated set totals — Pricing Explorer</h1>
-      <section id="prices" class="prices-page" data-prices-page="sets" aria-labelledby="prices-cost-to-complete">
-  <h2 id="prices-cost-to-complete" tabindex="-1">Estimated set totals</h2>
-  <p class="prices-intro">Find a set, compare its estimated value, and explore its daily price history.</p>
-  <!-- The same filters are used by set totals and the price-change chart. -->
-  <!-- Keep discovery controls available while the dashboard loads or retries. -->
-  <div class="prices-filters" role="group" aria-label="Find sets">
-    <label class="prices-filters__field prices-filters__field--search">
-      <span>Search sets</span>
-      <input type="search" data-prices-search placeholder="Set name, e.g. Evolving Skies" autocomplete="off">
-    </label>
-    <label class="prices-filters__field">
-      <span>Era</span>
-      <select data-prices-era>
-        <option value="">All eras</option>
-      </select>
-    </label>
-    <label class="prices-filters__coverage">
-      <input type="checkbox" data-prices-coverage>
-      <span>80%+ priced</span>
-    </label>
-    <button type="button" class="prices-action" data-prices-reset>Reset</button>
-  </div>
-  <!-- Shared snapshot status and comparison window for the market pages. -->
-  <p class="prices-asof" data-prices-asof>
-    Prices last updated: <strong data-prices-asof-value>loading…</strong>
-  </p>
-  <p class="prices-freshness" data-prices-freshness role="status" hidden></p>
-  <div class="prices-window" data-prices-window role="group" aria-label="Change window">
-    <span class="prices-window__label">Price change:</span>
-    <button type="button" class="prices-window__btn" data-window="7d" aria-pressed="false">7 days</button>
-    <button type="button" class="prices-window__btn" data-window="30d" aria-pressed="true">30 days</button>
-    <button type="button" class="prices-window__btn" data-window="90d" aria-pressed="false">90 days</button>
-    <button type="button" class="prices-window__btn" data-window="365d" aria-pressed="false">365 days</button>
-    <button type="button" class="prices-window__btn" data-window="all" aria-pressed="false">All history</button>
-  </div>
-  <p class="prices-load-status" data-prices-load-status role="status">Loading set prices…</p>
-  <button type="button" class="prices-action" data-prices-retry hidden>Try again</button>
-
-  <div data-prices-dashboard hidden>
-    <p data-prices-table-intro>
-      The <strong>priced-card total</strong> adds up the latest market prices available for each set.
-      Missing prices make the estimate incomplete. Select a set for details and daily price history, or a column heading to sort.
-    </p>
-    <p class="prices-results-count" data-prices-results-count role="status"></p>
-    <div class="prices-explorer">
-      <section class="prices-table-wrap" data-prices-table-wrap aria-label="Set results" tabindex="0">
-        <table class="prices-table" data-prices-table>
-          <caption class="sr-only">Estimated set totals, sortable by column</caption>
-          <thead>
-            <tr>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="label">Set</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="totalCents">Priced-card total</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="changePct">Change</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="pricedCount">Priced / Cards</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="releaseDate">Released</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="eraLabel">Era</button></th>
-              <th scope="col"><button type="button" class="prices-table__sort" data-sort-key="ranked">Ranked</button></th>
-            </tr>
-          </thead>
-          <tbody data-prices-table-body>
-            <tr>
-              <td colspan="7">Loading set prices…</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <!-- The selection follows its results in reading order, including on mobile. -->
-      <div class="prices-explorer__selection">
-        <p class="prices-detail-empty" data-prices-detail-empty>
-          Select a set to see its estimated total, price coverage, and daily price history.
-        </p>
-        <div class="prices-detail" data-prices-detail hidden>
-          <p class="prices-detail__title" data-prices-detail-title tabindex="-1" aria-live="polite">Set detail</p>
-          <dl class="prices-detail__stats" data-prices-detail-stats></dl>
-          <p class="prices-detail__coverage" data-prices-detail-coverage></p>
-          <div class="prices-detail__link prices-marketplace-links" role="group" aria-label="Look up this set"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Keep the selected set's history wide enough to compare daily prices. -->
-    <section class="prices-history" data-prices-history aria-labelledby="prices-history-heading" hidden>
-      <!-- Selected-set labels stay out of the page-wide sidebar. -->
-      <p class="prices-history__title" id="prices-history-heading">Daily set prices</p>
-      <p class="prices-history__name" data-prices-history-name></p>
-      <div class="prices-history__controls">
-        <div class="prices-history__ranges" role="group" aria-label="History date range">
-          <button type="button" class="prices-action" data-history-range="24h" aria-pressed="false">24h</button>
-          <button type="button" class="prices-action" data-history-range="3d" aria-pressed="false">3 days</button>
-          <button type="button" class="prices-action" data-history-range="1w" aria-pressed="false">1 week</button>
-          <button type="button" class="prices-action" data-history-range="2w" aria-pressed="false">2 weeks</button>
-          <button type="button" class="prices-action" data-history-range="1m" aria-pressed="false">1 month</button>
-          <button type="button" class="prices-action" data-history-range="3m" aria-pressed="true">3 months</button>
-          <button type="button" class="prices-action" data-history-range="6m" aria-pressed="false">6 months</button>
-          <button type="button" class="prices-action" data-history-range="1y" aria-pressed="false">1 year</button>
-          <button type="button" class="prices-action" data-history-range="max" aria-pressed="false">Max</button>
-        </div>
-        <div class="prices-history__start">
-          <label for="prices-history-start">Starting date</label>
-          <input type="date" id="prices-history-start" data-history-start>
-        </div>
-        <span class="prices-history__through">Through today (UTC)</span>
-      </div>
-      <p class="prices-history__status" data-history-status role="status"></p>
-      <button type="button" class="prices-action" data-history-retry hidden>Retry history</button>
-      <div
-        class="prices-history__chart"
-        data-history-chart
-        tabindex="0"
-        role="group"
-        aria-label="Daily set prices. Use Left and Right arrows to inspect dates, or Home and End."
-        hidden
-      ></div>
-      <p class="prices-history__readout" data-history-readout aria-live="polite"></p>
-      <p class="prices-history__caption">
-        Daily priced-card totals in USD. Missing days are left blank; changing card coverage can affect the total.
-      </p>
-    </section>
-  </div>
+      <h1 class="sr-only">Pricing Explorer</h1>
+      <section id="pricing-unavailable" aria-labelledby="pricing-unavailable-heading">
+  <h2 id="pricing-unavailable-heading" tabindex="-1">Pricing Explorer is temporarily unavailable</h2>
+  <p>Card search and individual card prices remain available in Catalog Explorer.</p>
 </section>
       <!-- Sections are injected by script.js -->
     </main>
@@ -223,12 +96,12 @@
   <!-- Page-specific config: a relative prefix to reach root-level assets/data, and the
        section list to load. Absent on the guide page, where script.js falls back to its
        historical defaults. -->
-  <script type="application/json" id="page-config">{"basePath":"../../","pricingPage":"sets","sections":["content/pricing/sets.html"]}</script>
+  <script type="application/json" id="page-config">{"basePath":"../../","pricingPage":"sets","sections":["content/pricing/unavailable.html"]}</script>
   <!-- Build output can inline these JSON blobs so the page avoids extra startup fetches. -->
   <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_prices_heading":"pricing/","internal_prices_lookup":"catalog/","internal_tracking_apps_card_codex":"#tracking-apps-card-codex","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_holodex":"https://www.getholodex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_ebay_search":"https://www.ebay.com/sch/i.html","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/why-misprint?ref=dyzzyscards","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/","external_pokemasterlist":"https://pokemasterlist.vercel.app"}</script>
-  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"9588bb1","generatedAt":"2026-10-06T07:00:56.804Z"}</script>
-  <script src="../../script.js?v=1.0.0-9588bb1"></script>
-  <script src="../../prices.js?v=1.0.0-9588bb1"></script>
+  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"9d7cb99","generatedAt":"2026-10-07T05:43:08.006Z"}</script>
+  <script src="../../script.js?v=1.0.0-9d7cb99"></script>
+  
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"

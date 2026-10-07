@@ -11,9 +11,9 @@
   <meta name="theme-color" content="#05060b">
   <link rel="canonical" href="https://poke-guide.com/catalog/">
   <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
-  <link rel="manifest" href="../manifest.json?v=1.0.0-9588bb1">
-  <link rel="icon" type="image/png" sizes="512x512" href="../images/logo-512.png?v=1.0.0-9588bb1">
-  <link rel="apple-touch-icon" href="../images/logo-512.png?v=1.0.0-9588bb1">
+  <link rel="manifest" href="../manifest.json?v=1.0.0-9d7cb99">
+  <link rel="icon" type="image/png" sizes="512x512" href="../images/logo-512.png?v=1.0.0-9d7cb99">
+  <link rel="apple-touch-icon" href="../images/logo-512.png?v=1.0.0-9d7cb99">
   <meta property="og:site_name" content="Poke Guide">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pokemon Card Catalog Explorer | Poke Guide">
@@ -28,9 +28,9 @@
   <meta name="twitter:description"
     content="Search TCGPlayer, eBay, and Misprint for Pokemon cards and sets, and compare asking prices with completed sales.">
   <meta name="twitter:image" content="https://poke-guide.com/images/logo-512.png">
-  <link rel="stylesheet" href="../styles/base.css?v=1.0.0-9588bb1">
-  <link rel="stylesheet" href="../styles/nav.css?v=1.0.0-9588bb1">
-  <link rel="stylesheet" href="../styles/layout.css?v=1.0.0-9588bb1">
+  <link rel="stylesheet" href="../styles/base.css?v=1.0.0-9d7cb99">
+  <link rel="stylesheet" href="../styles/nav.css?v=1.0.0-9d7cb99">
+  <link rel="stylesheet" href="../styles/layout.css?v=1.0.0-9d7cb99">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -54,7 +54,7 @@
 <body>
   <!-- Dedicated fixed background layer so parallax does not depend on browser-specific body background behavior. -->
   <div class="page-background" aria-hidden="true">
-    <img src="../images/background.jpg?v=1.0.0-9588bb1" alt="" class="page-background-image" width="1024" height="1536"
+    <img src="../images/background.jpg?v=1.0.0-9d7cb99" alt="" class="page-background-image" width="1024" height="1536"
       fetchpriority="high" decoding="async">
   </div>
   <a class="skip-link" href="#content" data-link-key="internal_content">Skip to main content</a>
@@ -63,23 +63,57 @@
     <nav class="page-nav" aria-label="Site">
       <a class="page-nav__link" href="../">Guide</a>
       <a class="page-nav__link" href="../catalog/" aria-current="page">Catalog Explorer</a>
-      <a class="page-nav__link" href="../pricing/">Pricing Explorer</a>
+      
     </nav>
   </header>
-  <div class="layout">
-    <!-- Keep the lookup page layout and logo while giving the catalog its own navigation. -->
+  <div class="layout layout--catalog">
+    <!-- Catalog filters share the logo rail; the guide and pricing pages retain their navigation. -->
     <aside id="toc" class="sidebar" aria-label="Catalog Explorer">
       <div class="site-header">
-        <img src="../images/logo-512.png?v=1.0.0-9588bb1" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
+        <img src="../images/logo-512.png?v=1.0.0-9d7cb99" alt="Poke Guide logo" class="site-header-image" width="512" height="512"
           fetchpriority="high" decoding="async">
         <div class="site-title">POKE GUIDE</div>
       </div>
-      <button class="sidebar__toggle" type="button" aria-expanded="false" aria-controls="page-sections">
-        Catalog pages <span aria-hidden="true">⌄</span>
+      <button class="sidebar__toggle" type="button" aria-expanded="false" aria-controls="catalog-filters">
+        Filters <span aria-hidden="true">⌄</span>
       </button>
-      <nav id="page-sections" class="nav" aria-label="Catalog pages">
-        <div class="nav-group nav-group--active"><a class="nav-link nav-link--level1 catalog-nav__link" href="../catalog/" aria-current="page">Marketplace lookups</a></div>
-      </nav>
+      <div id="catalog-filters" class="catalog-filters" data-catalog-filters>
+        <h2 class="catalog-filters__heading">Filters</h2>
+        <!-- Form association keeps sidebar controls part of Search, including native price validation. -->
+        <div class="prices-lookup__filters">
+          <label class="prices-filters__field">
+            <span>Language</span>
+            <select data-prices-lookup-language form="prices-lookup-form">
+              <option value="">All languages</option>
+              <option value="en">English</option>
+              <option value="ja">Japanese</option>
+            </select>
+          </label>
+          <label class="prices-filters__field">
+            <span>Printing</span>
+            <select data-prices-lookup-printing form="prices-lookup-form">
+              <option value="">All printings</option>
+              <option value="Normal">Normal</option>
+              <option value="Holofoil">Holofoil</option>
+              <option value="Reverse Holofoil">Reverse Holofoil</option>
+              <option value="1st Edition">1st Edition</option>
+              <option value="1st Edition Holofoil">1st Edition Holofoil</option>
+              <option value="Unlimited">Unlimited</option>
+              <option value="Unlimited Holofoil">Unlimited Holofoil</option>
+              <option value="Metal">Metal</option>
+            </select>
+          </label>
+          <label class="prices-filters__field">
+            <span>Minimum price (USD)</span>
+            <input type="number" data-prices-lookup-min-price form="prices-lookup-form" min="0" step="0.01" inputmode="decimal" placeholder="No minimum" aria-describedby="prices-lookup-filter-status">
+          </label>
+          <label class="prices-filters__field">
+            <span>Maximum price (USD)</span>
+            <input type="number" data-prices-lookup-max-price form="prices-lookup-form" min="0" step="0.01" inputmode="decimal" placeholder="No maximum" aria-describedby="prices-lookup-filter-status">
+          </label>
+          <button type="button" class="prices-action" data-prices-lookup-clear-filters>Clear filters</button>
+        </div>
+      </div>
     </aside>
 
     <!-- Main content (the production build can render sections here for crawlers) -->
@@ -87,58 +121,44 @@
       <h1 class="sr-only">Catalog Explorer</h1>
       <section id="prices" class="prices-page" data-prices-page="lookup" aria-labelledby="prices-lookup">
   <h2 id="prices-lookup" tabindex="-1">Marketplace lookups</h2>
-  <p class="prices-intro">Search TCGPlayer, eBay, and Misprint from one place.</p>
   <!-- Marketplace searches are available without a market snapshot. -->
   <div class="prices-lookup">
-    <p>Search by name, set, number, card type, or rarity. Try Pikachu, Trainer, ACE SPEC, 124/172, or Special Illustration Rare. Choose a suggestion for one card, or press Search to browse all matches.</p>
-    <form class="prices-lookup__form" data-prices-lookup-form>
+    <form id="prices-lookup-form" class="prices-lookup__form" data-prices-lookup-form>
       <div class="prices-lookup__search-row">
-        <label class="prices-filters__field">
-          <span>Card or set to look up</span>
-          <input type="search" data-prices-lookup-query placeholder="e.g. Pikachu or Special Illustration Rare" maxlength="200" autocomplete="off" enterkeyhint="search" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="prices-lookup-results" aria-describedby="prices-lookup-status">
-        </label>
+        <div class="prices-filters__field prices-lookup__search-field">
+          <div class="prices-lookup__search-label">
+            <label for="catalog-search">Search cards</label>
+            <div class="catalog-help" data-catalog-help>
+              <button type="button" class="catalog-help__button" aria-label="Search tips" aria-describedby="catalog-search-tips">?</button>
+              <div id="catalog-search-tips" class="catalog-help__tooltip" role="tooltip" hidden>
+                <strong>Search by:</strong>
+                <ul class="catalog-help__fields">
+                  <li>Card name, set, or set code</li>
+                  <li>Artist / illustrator</li>
+                  <li>Card number (e.g. 124/172)</li>
+                  <li>Card type (Pokémon, Trainer, or Energy)</li>
+                  <li>Rarity (e.g. Special Illustration Rare)</li>
+                  <li>Variant or printing</li>
+                  <li>Language</li>
+                  <li>Pokémon type, subtype, or Pokédex number</li>
+                  <li>Previous evolution or legal format</li>
+                </ul>
+                <strong>Combine fields in one search:</strong><br>
+                “Pikachu Prismatic Evolutions” — name + set.<br>
+                “Trainer Ultra Rare” — card type + rarity.<br>
+                “Komiya Drowzee” — artist + card name.<br>
+                Matches depend on the available catalog metadata.
+              </div>
+            </div>
+          </div>
+          <input id="catalog-search" type="search" data-prices-lookup-query placeholder="Search by card name, set, number, or rarity…" maxlength="200" autocomplete="off" enterkeyhint="search" aria-describedby="prices-lookup-status">
+        </div>
         <button type="submit" class="prices-action">Search</button>
       </div>
-      <!-- Keep optional limits in the search form so numeric values receive native validation. -->
-      <div class="prices-lookup__filters">
-        <label class="prices-filters__field">
-          <span>Language</span>
-          <select data-prices-lookup-language>
-            <option value="">All languages</option>
-            <option value="en">English</option>
-            <option value="ja">Japanese</option>
-          </select>
-        </label>
-        <label class="prices-filters__field">
-          <span>Printing</span>
-          <select data-prices-lookup-printing>
-            <option value="">All printings</option>
-            <option value="Normal">Normal</option>
-            <option value="Holofoil">Holofoil</option>
-            <option value="Reverse Holofoil">Reverse Holofoil</option>
-            <option value="1st Edition">1st Edition</option>
-            <option value="1st Edition Holofoil">1st Edition Holofoil</option>
-            <option value="Unlimited">Unlimited</option>
-            <option value="Unlimited Holofoil">Unlimited Holofoil</option>
-            <option value="Metal">Metal</option>
-          </select>
-        </label>
-        <label class="prices-filters__field">
-          <span>Minimum price (USD)</span>
-          <input type="number" data-prices-lookup-min-price min="0" step="0.01" inputmode="decimal" placeholder="No minimum" aria-describedby="prices-lookup-filter-status">
-        </label>
-        <label class="prices-filters__field">
-          <span>Maximum price (USD)</span>
-          <input type="number" data-prices-lookup-max-price min="0" step="0.01" inputmode="decimal" placeholder="No maximum" aria-describedby="prices-lookup-filter-status">
-        </label>
-        <button type="button" class="prices-action" data-prices-lookup-clear-filters>Clear filters</button>
-      </div>
-      <p id="prices-lookup-filter-status" class="prices-lookup__status" data-prices-lookup-filter-status role="status">Use one or both price limits. Price filters use the available market-price snapshot.</p>
+      <p id="prices-lookup-filter-status" class="prices-lookup__status" data-prices-lookup-filter-status role="status" hidden></p>
     </form>
-    <p id="prices-lookup-status" class="prices-lookup__status" data-prices-lookup-status role="status">Type at least 2 characters to find a card.</p>
+    <p id="prices-lookup-status" class="prices-lookup__status" data-prices-lookup-status role="status">Loading cards…</p>
     <button type="button" class="prices-action" data-prices-lookup-retry hidden>Retry card search</button>
-    <!-- [html-validate-disable-next prefer-native-element -- A listbox supports the editable card-search combobox.] -->
-    <ul id="prices-lookup-results" class="prices-lookup__results" data-prices-lookup-results role="listbox" aria-label="Matching cards" hidden></ul>
 
     <!-- Keep the selected printing and its marketplace links together. -->
     <section class="prices-card" data-prices-card aria-labelledby="prices-card-heading" hidden>
@@ -158,11 +178,10 @@
       </div>
     </section>
 
-    <!-- Submitted searches stay available while a chosen card's details open above. -->
+    <!-- Live results stay available while a chosen card's details open above. -->
     <section class="prices-browse" data-prices-browse aria-labelledby="prices-browse-heading" hidden>
       <h3 id="prices-browse-heading" data-prices-browse-title tabindex="-1">Search results</h3>
       <p class="prices-lookup__status" data-prices-browse-status role="status"></p>
-      <p class="prices-lookup__note">Type and rarity searches use the metadata available in the catalog.</p>
       <div class="prices-browse__sort">
         <label class="prices-filters__field">
           Sort by
@@ -184,12 +203,11 @@
         </label>
       </div>
       <p id="prices-browse-sort-note" class="prices-lookup__note" data-prices-browse-sort-note>Results are ranked by relevance.</p>
-      <ul class="prices-browse__grid" data-prices-browse-grid></ul>
-      <nav class="prices-browse__pagination" aria-label="Card search results">
-        <button type="button" class="prices-action" data-prices-browse-prev disabled>Previous</button>
-        <span data-prices-browse-page></span>
-        <button type="button" class="prices-action" data-prices-browse-next disabled>Next</button>
-      </nav>
+      <section class="prices-browse__viewport" data-prices-browse-viewport aria-label="Card search results" tabindex="0">
+        <ul class="prices-browse__grid" data-prices-browse-grid></ul>
+      </section>
+      <p class="prices-lookup__status prices-browse__progress" data-prices-browse-progress role="status"></p>
+      <button type="button" class="prices-action" data-prices-browse-retry hidden>Retry loading more</button>
     </section>
 
     <p class="prices-lookup__note">
@@ -213,9 +231,9 @@
   <script type="application/json" id="page-config">{"basePath":"../","pricingPage":"lookup","sections":["content/pricing/lookup.html"]}</script>
   <!-- Build output can inline these JSON blobs so the page avoids extra startup fetches. -->
   <script id="link-registry-data" type="application/json">{"internal_content":"#content","internal_worth_heading":"#worth-heading","internal_worth_lookup_ebay":"#worth-lookup-ebay","internal_worth_lookup_tcgplayer":"#worth-lookup-tcgplayer","internal_prices_heading":"pricing/","internal_prices_lookup":"catalog/","internal_tracking_apps_card_codex":"#tracking-apps-card-codex","internal_tracking_apps_collectr":"#tracking-apps-collectr","internal_card_care_binders_material":"#card-care-binders-material","internal_card_care_toploaders":"#card-care-toploaders","internal_identify_vintage_shadowless":"#identify-vintage-shadowless","external_collectr":"https://app.getcollectr.com","external_pricecharting":"https://www.pricecharting.com","external_card_codex":"https://card-codex.com","external_holodex":"https://www.getholodex.com","external_card_codex_pro":"https://card-codex.com/pro/","external_card_codex_discord":"https://discord.com/invite/BhSc6ManuC","external_ebay":"https://www.ebay.com","external_ebay_search":"https://www.ebay.com/sch/i.html","external_tcgplayer_partner":"https://partner.tcgplayer.com/E0EQ7X","external_tcgplayer_condition_overview":"https://help.tcgplayer.com/hc/en-us/articles/221430307-Card-Conditioning-Overview","external_ultrapro_toploaders":"https://ultrapro.com/products/3-inch-x-4-inch-clear-regular-toploaders-25ct-for-standard-size-cards","external_vaultx_toploaders":"https://us.vaultx.com/collections/toploaders/products/rigid-toploaders-35pt","external_ultrapro_sleeves":"https://ultrapro.com/collections/card-sleeves","external_vaultx_sleeves":"https://us.vaultx.com/collections/card-sleeves","external_amazon":"https://www.amazon.com","external_amazon_top_loaders":"https://amzn.to/4rDkI8E","external_amazon_vaultx_slab_sleeves":"https://amzn.to/40F1B3a","external_gradedguard":"https://gradedguard.com","external_carddictive":"https://www.carddictive.com","external_dragonscale_supplies":"https://dragonscalesupplies.com","external_amazon_magnetic_card_holder":"https://amzn.to/4bRlZnV","external_amazon_card_savers":"https://amzn.to/40EUurq","external_amazon_team_bags":"https://amzn.to/47RdQxi","external_amazon_binder":"https://amzn.to/3NMNaqP","external_amazon_sleeves":"https://amzn.to/4bRm379","external_misprint":"https://www.misprint.com/why-misprint?ref=dyzzyscards","external_discord":"https://bit.ly/4bRNrlp","external_free_discord":"https://linktr.ee/rattlepokemon","external_rattlepokemon_youtube":"https://www.youtube.com/@RattlePokemon","external_buymeacoffee":"https://www.buymeacoffee.com/poke_guide","external_reddit_pokemonmisprints":"https://www.reddit.com/r/PokemonMisprints/","contact_email_matthew":"mailto:matthew@poke-guide.com","external_psa_standards":"https://www.psacard.com/gradingstandards","external_psa_submission_pricing":"https://www.psacard.com/submissions/10043213/service-level","external_cgc_standards":"https://www.cgccards.com/card-grading/grading-scale/","external_cgc_submission_form":"https://www.cgccards.com/orderform/submission/","external_beckett_standards":"https://www.beckett.com/grading-standards","external_beckett_submission_service":"https://www.beckett.com/submit/cards/service","external_tag_standards":"https://taggrading.com/pages/rubric","external_tag_pricing":"https://taggrading.com/pages/pricing","external_ace_standards":"https://acegrading.com/grading-scale","external_ace_submission_portal":"https://acegrading.com/submission-portal?step=3","external_bulbapedia_expansions":"https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_Trading_Card_Game_expansions","external_tcgplayer_rarity_article":"https://www.tcgplayer.com/content/article/How-to-Tell-the-Rarity-of-a-Pok%C3%A9mon-Card/3bc6c211-f4ce-4c4d-b823-74f3790ebaeb/","external_cgc_rarity_symbols":"https://www.cgccards.com/news/article/12438/pokemon-rarity-symbols/","external_pokemasterlist":"https://pokemasterlist.vercel.app"}</script>
-  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"9588bb1","generatedAt":"2026-10-06T07:00:56.804Z"}</script>
-  <script src="../script.js?v=1.0.0-9588bb1"></script>
-  <script src="../prices.js?v=1.0.0-9588bb1"></script>
+  <script id="version-data" type="application/json">{"version":"1.0.0","commit":"9d7cb99","generatedAt":"2026-10-07T05:43:08.006Z"}</script>
+  <script src="../script.js?v=1.0.0-9d7cb99"></script>
+  <script src="../prices.js?v=1.0.0-9d7cb99"></script>
 
   <!-- Cloudflare Web Analytics -->
   <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
