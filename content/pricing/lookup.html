@@ -1,6 +1,6 @@
 <section id="prices" class="prices-page" data-prices-page="lookup" aria-labelledby="prices-lookup">
   <h2 id="prices-lookup" tabindex="-1">Marketplace lookups</h2>
-  <!-- Marketplace searches are available without a market snapshot. -->
+  <!-- Card browsing remains available when pricing cannot be loaded. -->
   <div class="prices-lookup">
     <form id="prices-lookup-form" class="prices-lookup__form" data-prices-lookup-form>
       <div class="prices-lookup__search-row">
@@ -80,7 +80,7 @@
                   <dl class="prices-card__details" data-prices-card-details></dl>
                   <div class="prices-marketplace-links" data-prices-card-links></div>
                 </div>
-                <!-- Exact condition quotes stay separate from condition-blind market estimates. -->
+                <!-- Show exact condition quotes, with Near Mint also used as the browse price. -->
                 <section class="prices-card__prices" data-prices-card-prices tabindex="0" aria-label="Card prices by condition and variant"></section>
               </div>
             </section>
